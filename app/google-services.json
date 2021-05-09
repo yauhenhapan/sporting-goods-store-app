@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "627593389957",
+    "project_id": "sporting-goods-store-5527a",
+    "storage_bucket": "sporting-goods-store-5527a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627593389957:android:79d12dd30868b0213446ec",
+        "android_client_info": {
+          "package_name": "by.gapanovich.sportinggoodsstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627593389957-77u5i2rsoq2t1gt7fldrbeg6k3hrpi4d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDva2GJLvtHDX4VNEPQr7uVVG3o9c6J3ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627593389957-77u5i2rsoq2t1gt7fldrbeg6k3hrpi4d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
