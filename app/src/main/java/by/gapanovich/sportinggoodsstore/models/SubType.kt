@@ -8,5 +8,7 @@ data class SubType(
     @SerializedName("name")
     val name: String,
     @SerializedName("id_type")
-    val idType: Int
+    val idType: Int,
+    @SerializedName("img_url")
+    val imgUrl: String
 )

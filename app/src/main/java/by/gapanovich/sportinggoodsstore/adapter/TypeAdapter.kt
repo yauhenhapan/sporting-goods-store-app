@@ -1,13 +1,18 @@
 package by.gapanovich.sportinggoodsstore.adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.models.Type
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
+import com.squareup.picasso.Picasso
+import java.io.File
 
 class TypeAdapter(val changeFragment: ChangeFragment) :
     RecyclerView.Adapter<TypeAdapter.MyViewHolder>() {
@@ -17,7 +22,9 @@ class TypeAdapter(val changeFragment: ChangeFragment) :
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun initViewHolder(position: Int) {
             val name: TextView = itemView.findViewById(R.id.name)
+            val img: ImageView = itemView.findViewById(R.id.img_url)
             name.text = list[position].name
+            Picasso.get().load(list[position].imgUrl).into(img)
             itemView.setOnClickListener {
                 changeFragment.changeFragment(list[position].idType)
             }
@@ -58,5 +65,10 @@ class TypeAdapter(val changeFragment: ChangeFragment) :
     fun setData(newList: List<Type>) {
         list = newList
         notifyDataSetChanged()
+    }
+
+    fun getBitmapCode(path: String): Bitmap {
+        val file = File(path)
+        return BitmapFactory.decodeFile(file.absolutePath)
     }
 }
