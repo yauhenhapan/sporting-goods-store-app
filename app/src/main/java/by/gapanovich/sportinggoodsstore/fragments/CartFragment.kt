@@ -5,9 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
+import by.gapanovich.sportinggoodsstore.adapter.CartAdapter
 
 class CartFragment : Fragment() {
+
+    private lateinit var recyclerView: RecyclerView
+    private val cartAdapter by lazy { CartAdapter() }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        recyclerView = view.findViewById(R.id.recycler_view)
+
+        setupRecyclerview()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -17,4 +33,8 @@ class CartFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 
+    private fun setupRecyclerview() {
+        recyclerView.adapter = cartAdapter
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+    }
 }

@@ -1,7 +1,5 @@
 package by.gapanovich.sportinggoodsstore.adapter
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.models.Type
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import com.squareup.picasso.Picasso
-import java.io.File
 
 class TypeAdapter(val changeFragment: ChangeFragment) :
     RecyclerView.Adapter<TypeAdapter.MyViewHolder>() {
@@ -65,10 +62,5 @@ class TypeAdapter(val changeFragment: ChangeFragment) :
     fun setData(newList: List<Type>) {
         list = newList
         notifyDataSetChanged()
-    }
-
-    fun getBitmapCode(path: String): Bitmap {
-        val file = File(path)
-        return BitmapFactory.decodeFile(file.absolutePath)
     }
 }

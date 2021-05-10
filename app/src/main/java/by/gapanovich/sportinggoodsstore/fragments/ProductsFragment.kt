@@ -11,16 +11,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
-import by.gapanovich.sportinggoodsstore.adapter.TypeAdapter
+import by.gapanovich.sportinggoodsstore.adapter.ProductAdapter
 import by.gapanovich.sportinggoodsstore.repository.Repository
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
 
-class CatalogFragment : Fragment(), ChangeFragment {
+
+class ProductsFragment : Fragment(), ChangeFragment {
 
     private lateinit var viewModel: MainViewModel
-    private val typeAdapter by lazy { TypeAdapter(this) }
+    private val productAdapter by lazy { ProductAdapter(this) }
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,17 +30,20 @@ class CatalogFragment : Fragment(), ChangeFragment {
 
         setupRecyclerview()
 
+        val subTypeId = arguments?.get("subTypeId")
+
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getTypes()
-        viewModel.types.observe(this, Observer { response ->
+        viewModel.getSpecificProducts(subTypeId as Int)
+        viewModel.specificProducts.observe(this, Observer { response ->
             if (response.isSuccessful) {
-                response.body()?.let { typeAdapter.setData(it) }
+                response.body()?.let { productAdapter.setData(it) }
             } else {
                 Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
+
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -48,23 +52,23 @@ class CatalogFragment : Fragment(), ChangeFragment {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_catalog, container, false)
+        return inflater.inflate(R.layout.fragment_sub_types, container, false)
     }
 
     private fun setupRecyclerview() {
-        recyclerView.adapter = typeAdapter
+        recyclerView.adapter = productAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
     override fun changeFragment(number: Int) {
-        val subTypesFragment = SubTypesFragment()
+        val productFragment = ProductFragment()
         val bundle = Bundle()
-        bundle.putInt("typeId", number)
-        subTypesFragment.arguments = bundle
+        bundle.putInt("productId", number)
+        productFragment.arguments = bundle
 
         fragmentManager
             ?.beginTransaction()
-            ?.replace(R.id.frame_layout, subTypesFragment)
+            ?.replace(R.id.frame_layout, productFragment)
             ?.addToBackStack("")
             ?.commit()
     }

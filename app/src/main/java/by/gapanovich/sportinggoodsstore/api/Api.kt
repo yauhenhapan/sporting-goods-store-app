@@ -1,5 +1,6 @@
 package by.gapanovich.sportinggoodsstore.api
 
+import by.gapanovich.sportinggoodsstore.models.Product
 import by.gapanovich.sportinggoodsstore.models.SubType
 import by.gapanovich.sportinggoodsstore.models.Type
 import retrofit2.Response
@@ -28,4 +29,17 @@ interface Api {
         @Path("typeId") typeId: Int
     ): Response<List<SubType>>
 
+    @GET("products")
+    suspend fun getProducts(): Response<List<Product>>
+
+    @GET("product/{productId}")
+    suspend fun getProduct(
+        @Path("productId") productId: Int
+    ): Response<Product>
+
+
+    @GET("products/{subTypeId}")
+    suspend fun getSpecificProducts(
+        @Path("subTypeId") subTypeId: Int
+    ): Response<List<Product>>
 }

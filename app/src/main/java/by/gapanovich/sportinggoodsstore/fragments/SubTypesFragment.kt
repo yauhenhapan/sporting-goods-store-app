@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.SubTypeAdapter
 import by.gapanovich.sportinggoodsstore.repository.Repository
+import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
 
-class SubTypesFragment : Fragment() {
+class SubTypesFragment : Fragment(), ChangeFragment {
 
     private lateinit var viewModel: MainViewModel
-    private val subTypeAdapter by lazy { SubTypeAdapter() }
+    private val subTypeAdapter by lazy { SubTypeAdapter(this) }
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,5 +57,18 @@ class SubTypesFragment : Fragment() {
     private fun setupRecyclerview() {
         recyclerView.adapter = subTypeAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
+    }
+
+    override fun changeFragment(number: Int) {
+        val productFragment = ProductsFragment()
+        val bundle = Bundle()
+        bundle.putInt("subTypeId", number)
+        productFragment.arguments = bundle
+
+        fragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.frame_layout, productFragment)
+            ?.addToBackStack("")
+            ?.commit()
     }
 }

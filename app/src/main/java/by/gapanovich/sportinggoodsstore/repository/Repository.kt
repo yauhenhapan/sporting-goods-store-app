@@ -1,6 +1,7 @@
 package by.gapanovich.sportinggoodsstore.repository
 
 import by.gapanovich.sportinggoodsstore.api.RetrofitInstance
+import by.gapanovich.sportinggoodsstore.models.Product
 import by.gapanovich.sportinggoodsstore.models.SubType
 import by.gapanovich.sportinggoodsstore.models.Type
 import retrofit2.Response
@@ -24,5 +25,17 @@ class Repository {
 
     suspend fun getSpecificSubTypes(typeId: Int): Response<List<SubType>> {
         return RetrofitInstance.api.getSpecificSubTypes(typeId)
+    }
+
+    suspend fun getProduct(productId: Int): Response<Product> {
+        return RetrofitInstance.api.getProduct(productId)
+    }
+
+    suspend fun getSpecificProducts(subTypeId: Int): Response<List<Product>> {
+        return RetrofitInstance.api.getSpecificProducts(subTypeId)
+    }
+
+    suspend fun getProducts(): Response<List<Product>> {
+        return RetrofitInstance.api.getProducts()
     }
 }
