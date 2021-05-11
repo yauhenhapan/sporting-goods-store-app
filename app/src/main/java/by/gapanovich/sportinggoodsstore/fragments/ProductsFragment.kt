@@ -25,13 +25,10 @@ class ProductsFragment : Fragment(), ChangeFragment {
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerView = view.findViewById(R.id.recycler_view)
-
         setupRecyclerview()
 
         val subTypeId = arguments?.get("subTypeId")
-
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
@@ -51,7 +48,6 @@ class ProductsFragment : Fragment(), ChangeFragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sub_types, container, false)
     }
 

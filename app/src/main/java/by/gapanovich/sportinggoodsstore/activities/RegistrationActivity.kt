@@ -36,13 +36,13 @@ class RegistrationActivity : AppCompatActivity() {
                 ).addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
                         startActivity(Intent(this, MainActivity::class.java))
-                        Toast.makeText(this, "Successfully Logged in", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Вы успешно зашли!", Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(this, "Error Logging in", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Ошибка при входе", Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {
-                Toast.makeText(this, "Fields can not be empty!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Поля не могут быть пустыми!", Toast.LENGTH_SHORT).show()
             }
         }
     }

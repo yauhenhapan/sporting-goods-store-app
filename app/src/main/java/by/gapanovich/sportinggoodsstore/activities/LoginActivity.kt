@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.gapanovich.sportinggoodsstore.R
+import by.gapanovich.sportinggoodsstore.utils.UserData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 
@@ -41,14 +42,15 @@ class LoginActivity : AppCompatActivity() {
                     passwordLogin.text.toString()
                 ).addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        UserData.mail = emailLogin.text.toString()
                         startActivity(Intent(this, MainActivity::class.java))
-                        Toast.makeText(this, "Successfully Logged in", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Вы успешно вошли!", Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(this, "Error Logging in", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Ошибка при входе", Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {
-                Toast.makeText(this, "Please fill up the Credentials", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
             }
         }
     }

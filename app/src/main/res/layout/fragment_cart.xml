@@ -20,7 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="В корзине пусто"
-            android:textAlignment="center" />
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#000" />
 
         <TextView
             android:id="@+id/more_info_empty_cart_view"
@@ -28,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/info_empty_cart_view"
             android:layout_centerHorizontal="true"
+            android:textColor="#000"
             android:text="Перейдите в каталог чтобы найти нужный товар"
             android:textAlignment="center" />
 
@@ -38,6 +41,7 @@
             android:layout_below="@+id/more_info_empty_cart_view"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:backgroundTint="#ffa500"
             android:text="Перейти в каталог" />
     </RelativeLayout>
 

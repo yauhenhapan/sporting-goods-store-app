@@ -24,9 +24,7 @@ class CatalogFragment : Fragment(), ChangeFragment {
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerView = view.findViewById(R.id.recycler_view)
-
         setupRecyclerview()
 
         val repository = Repository()
@@ -47,7 +45,6 @@ class CatalogFragment : Fragment(), ChangeFragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_catalog, container, false)
     }
 

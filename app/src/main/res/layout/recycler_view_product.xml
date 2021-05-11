@@ -39,7 +39,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/img_url_product"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#000" />
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

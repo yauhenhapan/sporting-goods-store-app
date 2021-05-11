@@ -29,7 +29,6 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerView = view.findViewById(R.id.recycler_view_cart)
         setupRecyclerview()
 
@@ -58,7 +57,6 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 

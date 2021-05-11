@@ -24,13 +24,10 @@ class SubTypesFragment : Fragment(), ChangeFragment {
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerView = view.findViewById(R.id.recycler_view)
-
         setupRecyclerview()
 
-        var idSubType = arguments?.get("typeId")
-
+        val idSubType = arguments?.get("typeId")
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
@@ -50,7 +47,6 @@ class SubTypesFragment : Fragment(), ChangeFragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sub_types, container, false)
     }
 

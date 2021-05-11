@@ -28,7 +28,6 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
     private lateinit var changeStateToCatalog: BottomNavigationMenu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerView = view.findViewById(R.id.recycler_view_favourite)
         setupRecyclerview()
 
@@ -47,7 +46,7 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
                 ?.addToBackStack("")
                 ?.commit()
         }
-        
+
         checkArraySize(RepositoryInstance.favArray)
 
         super.onViewCreated(view, savedInstanceState)
@@ -57,7 +56,6 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favourite, container, false)
     }
 

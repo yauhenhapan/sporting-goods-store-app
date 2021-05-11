@@ -11,7 +11,8 @@ import by.gapanovich.sportinggoodsstore.models.Product
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import com.squareup.picasso.Picasso
 
-class ProductAdapter(val changeFragment: ChangeFragment) : RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
+class ProductAdapter(val changeFragment: ChangeFragment) :
+    RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
     private var list = emptyList<Product>()
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
