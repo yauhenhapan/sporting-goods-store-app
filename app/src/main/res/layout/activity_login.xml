@@ -19,7 +19,8 @@
         android:layout_below="@+id/email_login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:hint="Пароль" />
+        android:hint="Пароль"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btn_login"
