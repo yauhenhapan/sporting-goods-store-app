@@ -9,20 +9,22 @@ import by.gapanovich.sportinggoodsstore.fragments.CartFragment
 import by.gapanovich.sportinggoodsstore.fragments.CatalogFragment
 import by.gapanovich.sportinggoodsstore.fragments.FavouriteFragment
 import by.gapanovich.sportinggoodsstore.fragments.ProfileFragment
+import by.gapanovich.sportinggoodsstore.utils.BottomNavigationMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BottomNavigationMenu {
 
     private lateinit var catalogFragment: CatalogFragment
     private lateinit var cartFragment: CartFragment
     private lateinit var favouriteFragment: FavouriteFragment
     private lateinit var profileFragment: ProfileFragment
+    private lateinit var bottomNavigationMenu: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bottom = findViewById<BottomNavigationView>(R.id.bottom_nav_menu)
+        bottomNavigationMenu = findViewById(R.id.bottom_nav_menu)
         findViewById<FrameLayout>(R.id.frame_layout)
 
         catalogFragment = CatalogFragment()
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
-        bottom.setOnNavigationItemSelectedListener { item ->
+        bottomNavigationMenu.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.catalog -> {
                     catalogFragment = CatalogFragment()
@@ -72,5 +74,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun changeToCatalogState() {
+        bottomNavigationMenu.menu.getItem(0).isChecked = true
     }
 }

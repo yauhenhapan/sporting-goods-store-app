@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
+import by.gapanovich.sportinggoodsstore.utils.CheckArray
 import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
 import com.squareup.picasso.Picasso
 
-class FavouriteAdapter(val changeFragment: ChangeFragment) :
+class FavouriteAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray) :
     RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>() {
 
     private var list = RepositoryInstance.favArray
@@ -37,11 +38,15 @@ class FavouriteAdapter(val changeFragment: ChangeFragment) :
             btnDelete.setOnClickListener {
                 RepositoryInstance.favArray.removeAt(position)
                 notifyDataSetChanged()
+                checkArray.checkArraySize(RepositoryInstance.favArray)
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteAdapter.MyViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): FavouriteAdapter.MyViewHolder {
         return if (viewType == 1) {
             MyViewHolder(
                 LayoutInflater.from(parent.context)

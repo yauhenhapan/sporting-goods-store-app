@@ -23,7 +23,7 @@ class SubTypeAdapter(val changeFragment: ChangeFragment) :
             name.text = list[position].name
             Picasso.get().load(list[position].imgUrl).into(img)
             itemView.setOnClickListener {
-                changeFragment.changeFragment(list[position].idType)
+                changeFragment.changeFragment(list[position].idSubtype)
             }
         }
     }

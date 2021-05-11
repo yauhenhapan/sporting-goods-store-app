@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
+import by.gapanovich.sportinggoodsstore.utils.CheckArray
 import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
 import com.squareup.picasso.Picasso
 
-class CartAdapter(val changeFragment: ChangeFragment) :
+class CartAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray) :
     RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
 
     private var list = RepositoryInstance.cartArray
@@ -37,6 +38,7 @@ class CartAdapter(val changeFragment: ChangeFragment) :
             btnDelete.setOnClickListener {
                 RepositoryInstance.cartArray.removeAt(position)
                 notifyDataSetChanged()
+                checkArray.checkArraySize(RepositoryInstance.cartArray)
             }
         }
     }
