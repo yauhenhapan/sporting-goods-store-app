@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.CartAdapter
+import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 
-class CartFragment : Fragment() {
+class CartFragment : Fragment(), ChangeFragment {
 
     private lateinit var recyclerView: RecyclerView
-    private val cartAdapter by lazy { CartAdapter() }
+    private val cartAdapter by lazy { CartAdapter(this) }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        recyclerView = view.findViewById(R.id.recycler_view)
-
+        recyclerView = view.findViewById(R.id.recycler_view_cart)
         setupRecyclerview()
 
         super.onViewCreated(view, savedInstanceState)
@@ -36,5 +36,18 @@ class CartFragment : Fragment() {
     private fun setupRecyclerview() {
         recyclerView.adapter = cartAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
+    }
+
+    override fun changeFragment(number: Int) {
+        val productFragment = ProductFragment()
+        val bundle = Bundle()
+        bundle.putInt("productId", number)
+        productFragment.arguments = bundle
+
+        fragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.frame_layout, productFragment)
+            ?.addToBackStack("")
+            ?.commit()
     }
 }

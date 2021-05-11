@@ -12,40 +12,40 @@ import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
 import com.squareup.picasso.Picasso
 
-class CartAdapter(val changeFragment: ChangeFragment) :
-    RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
+class FavouriteAdapter(val changeFragment: ChangeFragment) :
+    RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>() {
 
-    private var list = RepositoryInstance.cartArray
+    private var list = RepositoryInstance.favArray
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun initViewHolder(position: Int) {
 
-            val name: TextView = itemView.findViewById(R.id.name_product_cart_view)
-            val price: TextView = itemView.findViewById(R.id.price_product_cart_view)
-            val img: ImageView = itemView.findViewById(R.id.img_url_product_cart_view)
-            val btnDelete: Button = itemView.findViewById(R.id.btn_delete_product_cart_view)
+            val name: TextView = itemView.findViewById(R.id.name_product_favourite_view)
+            val price: TextView = itemView.findViewById(R.id.price_product_favourite_view)
+            val img: ImageView = itemView.findViewById(R.id.img_url_product_favourite_view)
+            val btnDelete: Button = itemView.findViewById(R.id.btn_delete_product_favourite_view)
 
-            name.text = RepositoryInstance.cartArray[position].name
-            price.text = RepositoryInstance.cartArray[position].price
-            Picasso.get().load(RepositoryInstance.cartArray[position].imgUrl).into(img)
+            name.text = RepositoryInstance.favArray[position].name
+            price.text = RepositoryInstance.favArray[position].price
+            Picasso.get().load(RepositoryInstance.favArray[position].imgUrl).into(img)
 
             itemView.setOnClickListener {
                 changeFragment.changeFragment(list[position].subTypeId)
             }
 
             btnDelete.setOnClickListener {
-                RepositoryInstance.cartArray.removeAt(position)
+                RepositoryInstance.favArray.removeAt(position)
                 notifyDataSetChanged()
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteAdapter.MyViewHolder {
         return if (viewType == 1) {
             MyViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recycler_view_cart_product, parent, false)
+                    .inflate(R.layout.recycler_view_favourite_product, parent, false)
             )
         } else {
             MyViewHolder(
@@ -55,7 +55,7 @@ class CartAdapter(val changeFragment: ChangeFragment) :
         }
     }
 
-    override fun onBindViewHolder(holder: CartAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavouriteAdapter.MyViewHolder, position: Int) {
         if (position != list.size) {
             holder.initViewHolder(position)
         }

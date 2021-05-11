@@ -50,9 +50,28 @@ class ProductFragment : Fragment() {
                 Picasso.get().load(response.body()?.imgUrl!!).into(productImg)
 
                 btnAddToCart.setOnClickListener {
-                    RepositoryInstance.cartArray.add(response.body()!!)
+                    if (!RepositoryInstance.cartArray.contains(response.body())) {
+                        RepositoryInstance.cartArray.add(response.body()!!)
+                    } else {
+                        Toast.makeText(
+                            activity,
+                            "Этот товар уже есть в корзине",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
 
+                btnAddToFav.setOnClickListener {
+                    if (!RepositoryInstance.favArray.contains(response.body())) {
+                        RepositoryInstance.favArray.add(response.body()!!)
+                    } else {
+                        Toast.makeText(
+                            activity,
+                            "Этот товар уже есть в избранном",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             } else {
                 Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
             }
@@ -67,16 +86,4 @@ class ProductFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_product, container, false)
     }
-
-    /*override fun changeFragment(number: Int) {
-        val cartFragment = CartFragment()
-        val bundle = Bundle()
-        bundle.putInt("subTypeId", number)
-        productFragment.arguments = bundle
-
-        fragmentManager
-            ?.beginTransaction()
-            ?.replace(R.id.frame_layout, productFragment)
-            ?.commit()
-    }*/
 }

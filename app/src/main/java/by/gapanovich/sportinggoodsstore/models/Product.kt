@@ -14,6 +14,5 @@ data class Product(
     @SerializedName("id_subtype")
     val subTypeId: Int,
     @SerializedName("img_url")
-    val imgUrl: String,
-    val isSelected: Boolean = false
+    val imgUrl: String
 )

@@ -5,10 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
+import by.gapanovich.sportinggoodsstore.adapter.FavouriteAdapter
+import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 
+class FavouriteFragment : Fragment(), ChangeFragment {
 
-class FavouriteFragment : Fragment() {
+    private lateinit var recyclerView: RecyclerView
+    private val favouriteAdapter by lazy { FavouriteAdapter(this) }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        recyclerView = view.findViewById(R.id.recycler_view_favourite)
+        setupRecyclerview()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,4 +32,21 @@ class FavouriteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_favourite, container, false)
     }
 
+    private fun setupRecyclerview() {
+        recyclerView.adapter = favouriteAdapter
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+    }
+
+    override fun changeFragment(number: Int) {
+        val productFragment = ProductFragment()
+        val bundle = Bundle()
+        bundle.putInt("productId", number)
+        productFragment.arguments = bundle
+
+        fragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.frame_layout, productFragment)
+            ?.addToBackStack("")
+            ?.commit()
+    }
 }
