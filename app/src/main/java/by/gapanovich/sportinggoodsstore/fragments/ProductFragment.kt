@@ -23,6 +23,7 @@ class ProductFragment : Fragment() {
     private lateinit var productImg: ImageView
     private lateinit var productName: TextView
     private lateinit var productPrice: TextView
+    private lateinit var productCurrency: TextView
     private lateinit var productDescription: TextView
     private lateinit var btnAddToCart: Button
     private lateinit var btnAddToFav: Button
@@ -35,6 +36,7 @@ class ProductFragment : Fragment() {
         productImg = view.findViewById(R.id.product_image)
         productPrice = view.findViewById(R.id.product_price)
         productDescription = view.findViewById(R.id.product_description)
+        productCurrency = view.findViewById(R.id.product_currency)
         btnAddToCart = view.findViewById(R.id.btn_add_to_cart)
         btnAddToFav = view.findViewById(R.id.btn_add_to_fav)
 
@@ -45,7 +47,8 @@ class ProductFragment : Fragment() {
         viewModel.product.observe(this, Observer { response ->
             if (response.isSuccessful) {
                 productName.text = response.body()?.name!!
-                productPrice.text = response.body()?.price!!
+                productPrice.text = response.body()?.price.toString()!!
+                productCurrency.text = response.body()?.currency
                 productDescription.text = response.body()?.description!!
                 Picasso.get().load(response.body()?.imgUrl!!).into(productImg)
 

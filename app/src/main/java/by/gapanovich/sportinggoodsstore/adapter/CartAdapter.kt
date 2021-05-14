@@ -24,15 +24,18 @@ class CartAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray
 
             val name: TextView = itemView.findViewById(R.id.name_product_cart_view)
             val price: TextView = itemView.findViewById(R.id.price_product_cart_view)
+            val currency: TextView = itemView.findViewById(R.id.currency_product_cart_view)
             val img: ImageView = itemView.findViewById(R.id.img_url_product_cart_view)
             val btnDelete: Button = itemView.findViewById(R.id.btn_delete_product_cart_view)
 
             name.text = RepositoryInstance.cartArray[position].name
-            price.text = RepositoryInstance.cartArray[position].price
+            price.text = RepositoryInstance.cartArray[position].price.toString()
+            currency.text = RepositoryInstance.cartArray[position].currency
+
             Picasso.get().load(RepositoryInstance.cartArray[position].imgUrl).into(img)
 
             itemView.setOnClickListener {
-                changeFragment.changeFragment(list[position].subTypeId)
+                changeFragment.changeFragment(list[position].productId)
             }
 
             btnDelete.setOnClickListener {

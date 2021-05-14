@@ -20,7 +20,7 @@ class DataProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         userName = view.findViewById(R.id.edit_user_name_view)
         userSurname = view.findViewById(R.id.edit_user_surname_view)
-        btnSafeData = view.findViewById(R.id.btn_safe_data)
+        btnSafeData = view.findViewById(R.id.btn_save_data)
 
         btnSafeData.setOnClickListener {
             if (userName.text.toString().isEmpty() || userSurname.text.toString().isEmpty()) {

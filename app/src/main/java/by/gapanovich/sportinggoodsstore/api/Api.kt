@@ -1,10 +1,13 @@
 package by.gapanovich.sportinggoodsstore.api
 
+import by.gapanovich.sportinggoodsstore.models.Order
 import by.gapanovich.sportinggoodsstore.models.Product
 import by.gapanovich.sportinggoodsstore.models.SubType
 import by.gapanovich.sportinggoodsstore.models.Type
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface Api {
@@ -42,4 +45,9 @@ interface Api {
     suspend fun getSpecificProducts(
         @Path("subTypeId") subTypeId: Int
     ): Response<List<Product>>
+
+    @POST("orders")
+    suspend fun createOrder(
+        @Body order: Order
+    ): Response<Order>
 }

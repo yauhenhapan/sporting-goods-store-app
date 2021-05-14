@@ -3,6 +3,7 @@ package by.gapanovich.sportinggoodsstore.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import by.gapanovich.sportinggoodsstore.models.Order
 import by.gapanovich.sportinggoodsstore.models.Product
 import by.gapanovich.sportinggoodsstore.models.SubType
 import by.gapanovich.sportinggoodsstore.models.Type
@@ -15,6 +16,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var type: MutableLiveData<Response<Type>> = MutableLiveData()
     var subType: MutableLiveData<Response<SubType>> = MutableLiveData()
     var product: MutableLiveData<Response<Product>> = MutableLiveData()
+    var order: MutableLiveData<Response<Order>> = MutableLiveData()
 
     var types: MutableLiveData<Response<List<Type>>> = MutableLiveData()
     var subTypes: MutableLiveData<Response<List<SubType>>> = MutableLiveData()
@@ -76,6 +78,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.getProduct(productId)
             product.value = response
+        }
+    }
+
+    fun createOrder(customOrder: Order) {
+        viewModelScope.launch {
+            val response = repository.createOrder(customOrder)
+            order.value = response
         }
     }
 }

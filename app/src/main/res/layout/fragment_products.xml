@@ -10,4 +10,31 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/info_empty_products_vieww"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Товаров нет"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/more_info_empty_products_vieww"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_empty_products_vieww"
+            android:layout_centerHorizontal="true"
+            android:text="Не расстраивайтесь, в скором времени мы их завезём"
+            android:textAlignment="center"
+            android:textColor="#000" />
+
+    </RelativeLayout>
+
 </FrameLayout>

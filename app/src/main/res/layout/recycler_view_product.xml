@@ -22,11 +22,22 @@
 
         <TextView
             android:id="@+id/price_product_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
             android:layout_toRightOf="@id/img_url_product"
+            android:text="TextView"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/currency_product_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/price_product_view"
             android:text="TextView"
             android:textColor="#000"
             android:textStyle="bold" />

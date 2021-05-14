@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,10 +24,15 @@ class ProductsFragment : Fragment(), ChangeFragment {
     private lateinit var viewModel: MainViewModel
     private val productAdapter by lazy { ProductAdapter(this) }
     private lateinit var recyclerView: RecyclerView
+    private lateinit var infoText: TextView
+    private lateinit var moreInfoText: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = view.findViewById(R.id.recycler_view)
         setupRecyclerview()
+
+        infoText = view.findViewById(R.id.info_empty_products_vieww)
+        moreInfoText = view.findViewById(R.id.more_info_empty_products_vieww)
 
         val subTypeId = arguments?.get("subTypeId")
         val repository = Repository()
@@ -36,7 +42,16 @@ class ProductsFragment : Fragment(), ChangeFragment {
         viewModel.specificProducts.observe(this, Observer { response ->
             if (response.isSuccessful) {
                 response.body()?.let { productAdapter.setData(it) }
+                if (response.body()?.size != 0) {
+                    infoText.visibility = View.INVISIBLE
+                    moreInfoText.visibility = View.INVISIBLE
+                } else {
+                    infoText.visibility = View.VISIBLE
+                    moreInfoText.visibility = View.VISIBLE
+                }
             } else {
+                infoText.visibility = View.VISIBLE
+                moreInfoText.visibility = View.VISIBLE
                 Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
@@ -48,7 +63,7 @@ class ProductsFragment : Fragment(), ChangeFragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_sub_types, container, false)
+        return inflater.inflate(R.layout.fragment_products, container, false)
     }
 
     private fun setupRecyclerview() {

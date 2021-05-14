@@ -20,8 +20,10 @@ class ProductAdapter(val changeFragment: ChangeFragment) :
             val img: ImageView = itemView.findViewById(R.id.img_url_product)
             val name: TextView = itemView.findViewById(R.id.name_product_view)
             val price: TextView = itemView.findViewById(R.id.price_product_view)
+            val currency: TextView = itemView.findViewById(R.id.currency_product_view)
             name.text = list[position].name
-            price.text = list[position].price
+            price.text = list[position].price.toString()
+            currency.text = list[position].currency
             Picasso.get().load(list[position].imgUrl).into(img)
             itemView.setOnClickListener {
                 changeFragment.changeFragment(list[position].productId)

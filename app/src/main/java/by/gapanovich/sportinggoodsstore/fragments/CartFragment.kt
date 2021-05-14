@@ -1,22 +1,27 @@
 package by.gapanovich.sportinggoodsstore.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.CartAdapter
+import by.gapanovich.sportinggoodsstore.models.Order
 import by.gapanovich.sportinggoodsstore.models.Product
-import by.gapanovich.sportinggoodsstore.utils.BottomNavigationMenu
-import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
-import by.gapanovich.sportinggoodsstore.utils.CheckArray
-import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
+import by.gapanovich.sportinggoodsstore.repository.Repository
+import by.gapanovich.sportinggoodsstore.utils.*
+import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
+import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
 
 class CartFragment : Fragment(), ChangeFragment, CheckArray {
 
@@ -25,8 +30,8 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
     private lateinit var infoText: TextView
     private lateinit var moreInfoText: TextView
     private lateinit var btnMoveToCatalog: Button
+    private lateinit var btnCreateOrder: Button
     private lateinit var changeStateToCatalog: BottomNavigationMenu
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = view.findViewById(R.id.recycler_view_cart)
@@ -36,6 +41,7 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
         infoText = view.findViewById(R.id.info_empty_cart_view)
         moreInfoText = view.findViewById(R.id.more_info_empty_cart_view)
         btnMoveToCatalog = view.findViewById(R.id.btn_move_to_catalog)
+        btnCreateOrder = view.findViewById(R.id.btn_create_order)
 
         btnMoveToCatalog.setOnClickListener {
             val catalogFragment = CatalogFragment()
@@ -43,6 +49,15 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
             fragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.frame_layout, catalogFragment)
+                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                ?.addToBackStack("")
+                ?.commit()
+        }
+
+        btnCreateOrder.setOnClickListener {
+            fragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.frame_layout, OrderFillingFragment())
                 ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 ?.addToBackStack("")
                 ?.commit()
@@ -83,10 +98,12 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
             infoText.visibility = View.INVISIBLE
             moreInfoText.visibility = View.INVISIBLE
             btnMoveToCatalog.visibility = View.INVISIBLE
+            btnCreateOrder.visibility = View.VISIBLE
         } else {
             infoText.visibility = View.VISIBLE
             moreInfoText.visibility = View.VISIBLE
             btnMoveToCatalog.visibility = View.VISIBLE
+            btnCreateOrder.visibility = View.INVISIBLE
         }
     }
 }

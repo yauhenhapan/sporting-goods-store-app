@@ -1,6 +1,7 @@
 package by.gapanovich.sportinggoodsstore.repository
 
 import by.gapanovich.sportinggoodsstore.api.RetrofitInstance
+import by.gapanovich.sportinggoodsstore.models.Order
 import by.gapanovich.sportinggoodsstore.models.Product
 import by.gapanovich.sportinggoodsstore.models.SubType
 import by.gapanovich.sportinggoodsstore.models.Type
@@ -37,5 +38,9 @@ class Repository {
 
     suspend fun getProducts(): Response<List<Product>> {
         return RetrofitInstance.api.getProducts()
+    }
+
+    suspend fun createOrder(order: Order): Response<Order> {
+        return RetrofitInstance.api.createOrder(order)
     }
 }

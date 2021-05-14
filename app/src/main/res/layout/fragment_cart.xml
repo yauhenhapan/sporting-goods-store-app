@@ -8,11 +8,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_cart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingBottom="70dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="80dp">
 
         <TextView
             android:id="@+id/info_empty_cart_view"
@@ -43,6 +45,15 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="#ffa500"
             android:text="Перейти в каталог" />
+
+        <Button
+            android:id="@+id/btn_create_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="#ffa500"
+            android:text="Заказать"
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </FrameLayout>

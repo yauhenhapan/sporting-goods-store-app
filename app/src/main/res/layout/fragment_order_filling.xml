@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DataProfileFragment">
+    tools:context=".fragments.OrderFillingFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:paddingBottom="80dp">
 
         <TextView
-            android:id="@+id/user_name_view"
+            android:id="@+id/user_name_order_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -22,51 +22,71 @@
             android:textColor="#000"
             android:textSize="25sp" />
 
-
         <EditText
-            android:id="@+id/edit_user_name_view"
+            android:id="@+id/edit_user_name_order_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/user_name_view"
+            android:layout_below="@id/user_name_order_view"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Введите имя"
-            android:inputType="textPersonName"
-            android:layout_marginTop="8dp" />
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/user_surname_view"
+            android:id="@+id/user_surname_order_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_user_name_view"
+            android:layout_below="@id/edit_user_name_order_view"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:text="Фамилия"
             android:textColor="#000"
-
             android:textSize="25sp" />
 
 
         <EditText
-            android:id="@+id/edit_user_surname_view"
+            android:id="@+id/edit_user_surname_order_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/user_surname_view"
+            android:layout_below="@id/user_surname_order_view"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Введите фамилию"
-            android:inputType="textPersonName"
-            android:layout_marginTop="8dp"/>
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/user_phone_number_order_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_user_surname_order_view"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Мобильный телефон"
+            android:textColor="#000"
+            android:textSize="25sp" />
+
+
+        <EditText
+            android:id="@+id/edit_user_phone_number_order_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_phone_number_order_view"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Введите мобильный телефон"
+            android:inputType="phone" />
 
 
         <Button
-            android:id="@+id/btn_save_data"
+            android:id="@+id/btn_save_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:backgroundTint="#000"
-            android:text="Сохранить" />
+            android:text="Заказать" />
     </RelativeLayout>
-
 
 </FrameLayout>
