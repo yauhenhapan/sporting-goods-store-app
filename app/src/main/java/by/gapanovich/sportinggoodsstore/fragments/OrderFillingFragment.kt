@@ -1,7 +1,6 @@
 package by.gapanovich.sportinggoodsstore.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.models.Order
@@ -57,6 +55,7 @@ class OrderFillingFragment : Fragment() {
                 }
                 Toast.makeText(activity, "Заказ оформлен", Toast.LENGTH_SHORT)
                     .show()
+                RepositoryInstance.ordersArray = RepositoryInstance.cartArray
                 RepositoryInstance.cartArray.clear()
                 fragmentManager
                     ?.beginTransaction()

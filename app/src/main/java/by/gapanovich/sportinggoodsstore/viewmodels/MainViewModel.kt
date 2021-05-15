@@ -24,6 +24,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     var specificSubTypes: MutableLiveData<Response<List<SubType>>> = MutableLiveData()
     var specificProducts: MutableLiveData<Response<List<Product>>> = MutableLiveData()
+    var specificProductsFromOrders: MutableLiveData<Response<List<Product>>> = MutableLiveData()
 
     fun getTypes() {
         viewModelScope.launch {
@@ -85,6 +86,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.createOrder(customOrder)
             order.value = response
+        }
+    }
+
+    fun getSpecificProductFromOrders(userMail: String) {
+        viewModelScope.launch {
+            val response = repository.getSpecificProductsFromOrders(userMail)
+            specificProductsFromOrders.value = response
         }
     }
 }

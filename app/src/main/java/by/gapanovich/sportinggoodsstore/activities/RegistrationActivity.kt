@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.gapanovich.sportinggoodsstore.R
+import by.gapanovich.sportinggoodsstore.utils.UserData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 
@@ -35,6 +36,7 @@ class RegistrationActivity : AppCompatActivity() {
                     passwordLogin.text.toString()
                 ).addOnCompleteListener(this, OnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        UserData.mail = emailLogin.text.toString()
                         startActivity(Intent(this, MainActivity::class.java))
                         Toast.makeText(this, "Вы успешно зашли!", Toast.LENGTH_LONG).show()
                     } else {

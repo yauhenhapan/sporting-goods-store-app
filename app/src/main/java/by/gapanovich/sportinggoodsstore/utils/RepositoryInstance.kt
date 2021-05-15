@@ -5,4 +5,5 @@ import by.gapanovich.sportinggoodsstore.models.Product
 object RepositoryInstance {
     var cartArray = mutableListOf<Product>()
     var favArray = mutableListOf<Product>()
+    var ordersArray = mutableListOf<Product>()
 }

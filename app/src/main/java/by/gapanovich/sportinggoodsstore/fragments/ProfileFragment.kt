@@ -24,6 +24,7 @@ class ProfileFragment : Fragment() {
     private lateinit var currentUserMail: TextView
     private lateinit var btnLogOut: Button
     private lateinit var btnChangeUserData: Button
+    private lateinit var btnShowOrders: Button
     private lateinit var mAuth: FirebaseAuth
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class ProfileFragment : Fragment() {
         currentUserMail = view.findViewById(R.id.show_user_mail_profile_view)
         btnLogOut = view.findViewById(R.id.btn_log_out)
         btnChangeUserData = view.findViewById(R.id.btn_change_user_data)
+        btnShowOrders = view.findViewById(R.id.btn_show_orders)
         mAuth = FirebaseAuth.getInstance()
 
         if (UserData.userData.size != 0) {
@@ -47,6 +49,18 @@ class ProfileFragment : Fragment() {
             fragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.frame_layout, DataProfileFragment())
+                ?.addToBackStack("")
+                ?.commit()
+        }
+
+        btnShowOrders.setOnClickListener {
+            val orderFragment = OrderCatalogFragment()
+            val bundle = Bundle()
+            bundle.putString("userMail", UserData.mail)
+            orderFragment.arguments = bundle
+            fragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.frame_layout, orderFragment)
                 ?.addToBackStack("")
                 ?.commit()
         }

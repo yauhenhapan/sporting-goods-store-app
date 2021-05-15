@@ -50,4 +50,9 @@ interface Api {
     suspend fun createOrder(
         @Body order: Order
     ): Response<Order>
+
+    @GET("orders/{userMail}")
+    suspend fun getSpecificProductsFromOrders(
+        @Path("userMail") userMail: String
+    ): Response<List<Product>>
 }

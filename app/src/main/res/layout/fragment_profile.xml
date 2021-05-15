@@ -87,6 +87,18 @@
             android:textSize="10sp" />
 
         <Button
+            android:id="@+id/btn_show_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/show_user_mail_profile_view"
+            android:layout_toRightOf="@id/btn_change_user_data"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#000"
+            android:text="Мои заказы"
+            android:textSize="10sp" />
+
+        <Button
             android:id="@+id/btn_log_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

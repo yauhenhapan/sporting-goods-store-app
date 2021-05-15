@@ -43,4 +43,8 @@ class Repository {
     suspend fun createOrder(order: Order): Response<Order> {
         return RetrofitInstance.api.createOrder(order)
     }
+
+    suspend fun getSpecificProductsFromOrders(userMail: String): Response<List<Product>> {
+        return RetrofitInstance.api.getSpecificProductsFromOrders(userMail)
+    }
 }
