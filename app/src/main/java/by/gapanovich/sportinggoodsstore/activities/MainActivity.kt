@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationMenu {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
 
-        bottomNavigationMenu.setOnNavigationItemSelectedListener { item ->
+        bottomNavigationMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.catalog -> {
                     catalogFragment = CatalogFragment()

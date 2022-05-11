@@ -1,5 +1,6 @@
 package by.gapanovich.sportinggoodsstore.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import by.gapanovich.sportinggoodsstore.models.SubType
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import com.squareup.picasso.Picasso
 
-class SubTypeAdapter(val changeFragment: ChangeFragment) :
+class SubTypeAdapter(val changeFragment: ChangeFragment, val dictionaryType: String) :
     RecyclerView.Adapter<SubTypeAdapter.MyViewHolder>() {
 
     private var list = emptyList<SubType>()
@@ -23,7 +24,12 @@ class SubTypeAdapter(val changeFragment: ChangeFragment) :
             name.text = list[position].name
             Picasso.get().load(list[position].imgUrl).into(img)
             itemView.setOnClickListener {
-                changeFragment.changeFragment(list[position].idSubtype)
+                changeFragment.changeFragment(
+                    dictionaryType,
+                    list[position].keyCategory,
+                    list[position].keyCategoryOperation,
+                    list[position].dictionarySubType
+                )
             }
         }
     }

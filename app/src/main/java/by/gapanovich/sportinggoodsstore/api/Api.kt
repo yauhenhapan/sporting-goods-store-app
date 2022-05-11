@@ -1,50 +1,24 @@
 package by.gapanovich.sportinggoodsstore.api
 
-import by.gapanovich.sportinggoodsstore.models.Order
-import by.gapanovich.sportinggoodsstore.models.Product
-import by.gapanovich.sportinggoodsstore.models.SubType
-import by.gapanovich.sportinggoodsstore.models.Type
+import by.gapanovich.sportinggoodsstore.models.*
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface Api {
+
     @GET("types")
     suspend fun getTypes(): Response<List<Type>>
-
-    @GET("subtypes")
-    suspend fun getSubTypes(): Response<List<SubType>>
-
-    @GET("type/{typeId}")
-    suspend fun getSpecificType(
-        @Path("typeId") typeId: Int
-    ): Response<Type>
-
-    @GET("subtype/{subTypeId}")
-    suspend fun getSpecificSubType(
-        @Path("subTypeId") subTypeId: Int
-    ): Response<SubType>
 
     @GET("subtypes/{typeId}")
     suspend fun getSpecificSubTypes(
         @Path("typeId") typeId: Int
     ): Response<List<SubType>>
 
-    @GET("products")
-    suspend fun getProducts(): Response<List<Product>>
-
-    @GET("product/{productId}")
-    suspend fun getProduct(
-        @Path("productId") productId: Int
-    ): Response<Product>
-
-
-    @GET("products/{subTypeId}")
+    @GET("{dictionaryType}")
     suspend fun getSpecificProducts(
-        @Path("subTypeId") subTypeId: Int
-    ): Response<List<Product>>
+        @Path("dictionaryType") dictionaryType: String,
+        @QueryMap values: Map<String, String>
+    ): Response<Products>
 
     @POST("orders")
     suspend fun createOrder(
@@ -52,7 +26,12 @@ interface Api {
     ): Response<Order>
 
     @GET("orders/{userMail}")
-    suspend fun getSpecificProductsFromOrders(
+    suspend fun getKeyProductsByMail(
         @Path("userMail") userMail: String
-    ): Response<List<Product>>
+    ): Response<List<KeyProduct>>
+
+    @GET("{key}")
+    suspend fun getProduct(
+        @Path("key") key: String
+    ): Response<ProductCatalog>
 }

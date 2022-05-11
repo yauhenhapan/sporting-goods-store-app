@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar?.title = "Авторизация"
 
         mAuth = FirebaseAuth.getInstance()
         emailLogin = findViewById(R.id.email_login)
@@ -36,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            if (!emailLogin.text.toString().isEmpty() && !passwordLogin.text.toString().isEmpty()) {
+            if (emailLogin.text.toString().isNotEmpty() && passwordLogin.text.toString().isNotEmpty()) {
                 mAuth.signInWithEmailAndPassword(
                     emailLogin.text.toString(),
                     passwordLogin.text.toString()

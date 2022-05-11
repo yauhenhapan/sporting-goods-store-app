@@ -1,12 +1,14 @@
 package by.gapanovich.sportinggoodsstore.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +29,7 @@ class OrderFillingFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).supportActionBar?.title = "Заказ"
 
         userName = view.findViewById(R.id.edit_user_name_order_view)
         userSurname = view.findViewById(R.id.edit_user_surname_order_view)
@@ -34,8 +37,10 @@ class OrderFillingFragment : Fragment() {
         btnCreateOrder = view.findViewById(R.id.btn_save_order)
 
         btnCreateOrder.setOnClickListener {
-            if (userName.text.toString().isEmpty() || userSurname.text.toString().isEmpty()
-                || userPhoneNumber.text.toString().isEmpty()
+            if (
+                userName.text.toString().isEmpty() ||
+                userSurname.text.toString().isEmpty() ||
+                userPhoneNumber.text.toString().isEmpty()
             ) {
                 Toast.makeText(activity, "Пожалуйста, заполните все поля!", Toast.LENGTH_SHORT)
                     .show()
@@ -49,7 +54,7 @@ class OrderFillingFragment : Fragment() {
                         userSurname.text.toString(),
                         UserData.mail,
                         userPhoneNumber.text.toString(),
-                        product.productId
+                        product.key
                     )
                     viewModel.createOrder(order)
                 }

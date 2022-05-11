@@ -14,6 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/emoji_sad_favourite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/info_empty_favourite_view"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_emoji_sad" />
+
         <TextView
             android:id="@+id/info_empty_favourite_view"
             android:layout_width="wrap_content"
@@ -21,7 +30,8 @@
             android:layout_centerInParent="true"
             android:text="У вас нет избранных товаров"
             android:textAlignment="center"
-            android:textColor="#000"
+            android:textSize="17sp"
+            android:textColor="@color/dark_blue"
             android:textStyle="bold" />
 
         <TextView
@@ -30,19 +40,26 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/info_empty_favourite_view"
             android:layout_centerHorizontal="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:text="Перейдите в каталог чтобы добавить нужный товар в избранное"
             android:textAlignment="center"
-            android:textColor="#000" />
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp" />
 
 
         <Button
             android:id="@+id/btn_move_to_catalog_from_fav"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/more_info_empty_favourite_view"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#ffa500"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginEnd="88dp"
+            android:textSize="14sp"
+            android:backgroundTint="@color/dark_blue"
             android:text="Перейти в каталог" />
     </RelativeLayout>
 

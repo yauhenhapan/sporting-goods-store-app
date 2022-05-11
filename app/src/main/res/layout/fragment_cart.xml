@@ -16,6 +16,15 @@
         android:layout_height="match_parent"
         android:paddingBottom="80dp">
 
+        <ImageView
+            android:id="@+id/emoji_sad_cart"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_above="@+id/info_empty_cart_view"
+            android:src="@drawable/ic_emoji_sad" />
+
         <TextView
             android:id="@+id/info_empty_cart_view"
             android:layout_width="wrap_content"
@@ -24,7 +33,8 @@
             android:text="В корзине пусто"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="#000" />
+            android:textSize="17sp"
+            android:textColor="@color/dark_blue" />
 
         <TextView
             android:id="@+id/more_info_empty_cart_view"
@@ -32,28 +42,34 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/info_empty_cart_view"
             android:layout_centerHorizontal="true"
-            android:textColor="#000"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
             android:text="Перейдите в каталог чтобы найти нужный товар"
             android:textAlignment="center" />
 
         <Button
             android:id="@+id/btn_move_to_catalog"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/more_info_empty_cart_view"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#ffa500"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/dark_blue"
+            android:layout_marginStart="88dp"
+            android:layout_marginEnd="88dp"
+            android:textSize="14sp"
             android:text="Перейти в каталог" />
 
         <Button
             android:id="@+id/btn_create_order"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_alignParentBottom="true"
-            android:backgroundTint="#ffa500"
+            android:backgroundTint="@color/dark_blue"
             android:text="Заказать"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            />
     </RelativeLayout>
 
 </FrameLayout>

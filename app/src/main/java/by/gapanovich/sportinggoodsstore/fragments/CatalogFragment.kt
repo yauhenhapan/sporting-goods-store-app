@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.TypeAdapter
+import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.repository.Repository
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
@@ -24,6 +26,7 @@ class CatalogFragment : Fragment(), ChangeFragment {
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).supportActionBar?.title = "Каталог"
         recyclerView = view.findViewById(R.id.recycler_view)
         setupRecyclerview()
 
@@ -53,10 +56,11 @@ class CatalogFragment : Fragment(), ChangeFragment {
         recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
-    override fun changeFragment(number: Int) {
+    override fun changeFragment(number: Int, string: String) {
         val subTypesFragment = SubTypesFragment()
         val bundle = Bundle()
         bundle.putInt("typeId", number)
+        bundle.putString("typeDictionary", string)
         subTypesFragment.arguments = bundle
 
         fragmentManager
@@ -64,5 +68,26 @@ class CatalogFragment : Fragment(), ChangeFragment {
             ?.replace(R.id.frame_layout, subTypesFragment)
             ?.addToBackStack("")
             ?.commit()
+    }
+
+    override fun changeFragment(number: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(item: ProductCatalog) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(stringOne: String, stringTwo: String, stringThree: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+        stringFour: String
+    ) {
+        TODO("Not yet implemented")
     }
 }

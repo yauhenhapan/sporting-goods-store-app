@@ -12,27 +12,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.SubTypeAdapter
+import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.repository.Repository
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
+import java.util.*
 
 class SubTypesFragment : Fragment(), ChangeFragment {
 
     private lateinit var viewModel: MainViewModel
-    private val subTypeAdapter by lazy { SubTypeAdapter(this) }
+    private lateinit var subTypeAdapter: SubTypeAdapter
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = view.findViewById(R.id.recycler_view)
-        setupRecyclerview()
 
-        val idSubType = arguments?.get("typeId")
+        val idType = arguments?.get("typeId")
+        val dictionaryType=arguments?.get("typeDictionary")
+        setupRecyclerview(dictionaryType as String)
+
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getSpecificSubTypes(idSubType as Int)
-        viewModel.specificSubTypes.observe(this, Observer { response ->
+        viewModel.getSpecificSubTypes(idType as Int)
+        viewModel.specificSubTypes.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
                 response.body()?.let { subTypeAdapter.setData(it) }
             } else {
@@ -50,15 +54,36 @@ class SubTypesFragment : Fragment(), ChangeFragment {
         return inflater.inflate(R.layout.fragment_sub_types, container, false)
     }
 
-    private fun setupRecyclerview() {
+    private fun setupRecyclerview(dictionaryType: String) {
+        subTypeAdapter = SubTypeAdapter(this, dictionaryType)
         recyclerView.adapter = subTypeAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
     override fun changeFragment(number: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(item: ProductCatalog) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(number: Int, string: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(
+        dictionaryType: String,
+        keyCategory: String,
+        keyCategoryPosition: String,
+        dictionarySubType: String
+    ) {
         val productFragment = ProductsFragment()
         val bundle = Bundle()
-        bundle.putInt("subTypeId", number)
+        bundle.putString("dictionaryType", dictionaryType)
+        bundle.putString("keyCategory", keyCategory)
+        bundle.putString("keyCategoryPosition", keyCategoryPosition)
+        bundle.putString("dictionarySubType", dictionarySubType)
         productFragment.arguments = bundle
 
         fragmentManager
@@ -66,5 +91,13 @@ class SubTypesFragment : Fragment(), ChangeFragment {
             ?.replace(R.id.frame_layout, productFragment)
             ?.addToBackStack("")
             ?.commit()
+    }
+
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+    ) {
+        TODO("Not yet implemented")
     }
 }

@@ -7,14 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
-import by.gapanovich.sportinggoodsstore.models.Product
+import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import com.squareup.picasso.Picasso
 
 class OrderAdapter(val changeFragment: ChangeFragment) :
     RecyclerView.Adapter<OrderAdapter.MyViewHolder>() {
 
-    private var list = emptyList<Product>()
+    private var list = mutableListOf<ProductCatalog>()
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -24,11 +24,11 @@ class OrderAdapter(val changeFragment: ChangeFragment) :
             val price: TextView = itemView.findViewById(R.id.price_order_view)
             val currency: TextView = itemView.findViewById(R.id.currency_order_view)
             name.text = list[position].name
-            price.text = list[position].price.toString()
-            currency.text = list[position].currency
-            Picasso.get().load(list[position].imgUrl).into(img)
+            price.text = list[position].prices?.price?.amount
+            currency.text = list[position].prices?.price?.currency
+            Picasso.get().load("https:" + list[position].img.img_url).into(img)
             itemView.setOnClickListener {
-                changeFragment.changeFragment(list[position].productId)
+                changeFragment.changeFragment(list[position])
             }
         }
     }
@@ -63,8 +63,8 @@ class OrderAdapter(val changeFragment: ChangeFragment) :
         } else 0
     }
 
-    fun setData(newList: List<Product>) {
-        list = newList
+    fun setData(item: ProductCatalog) {
+        list.add(item)
         notifyDataSetChanged()
     }
 }

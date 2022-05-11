@@ -2,8 +2,11 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_height="96dp"
+    android:layout_marginTop="24dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="16dp"
     app:cardCornerRadius="12dp">
 
 
@@ -17,37 +20,31 @@
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="96dp"
             android:layout_weight="4"
             android:fontFamily="sans-serif"
             android:gravity="center_vertical"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
+            android:layout_marginStart="16dp"
             android:text="Text"
-            android:textColor="#000"
+            android:textStyle="bold"
+            android:textColor="@color/dark_blue"
             android:textSize="18sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="96dp"
             android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/img_url"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </LinearLayout>
 

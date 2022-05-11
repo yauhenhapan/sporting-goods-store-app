@@ -8,5 +8,7 @@ data class Type(
     @SerializedName("name")
     val name: String,
     @SerializedName("img_url")
-    val imgUrl: String
+    val imgUrl: String,
+    @SerializedName("type_dictionary")
+    val dictionaryType: String
 )

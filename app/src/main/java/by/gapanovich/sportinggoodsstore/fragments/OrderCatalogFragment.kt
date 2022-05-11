@@ -1,6 +1,7 @@
 package by.gapanovich.sportinggoodsstore.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,19 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.OrderAdapter
-import by.gapanovich.sportinggoodsstore.models.Product
+import by.gapanovich.sportinggoodsstore.models.KeyProduct
+import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.repository.Repository
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
-import by.gapanovich.sportinggoodsstore.utils.CheckArray
-import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
-import by.gapanovich.sportinggoodsstore.utils.UserData
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
 
 class OrderCatalogFragment : Fragment(), ChangeFragment {
 
-    private lateinit var userInfo: TextView
-    private lateinit var userMail: TextView
     private lateinit var emptyInfo: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: MainViewModel
@@ -35,30 +32,36 @@ class OrderCatalogFragment : Fragment(), ChangeFragment {
         recyclerView = view.findViewById(R.id.recycler_view_order)
         setupRecyclerview()
         val userMailField = arguments?.get("userMail")
-        userInfo = view.findViewById(R.id.order_catalog_user_info_view)
-        userMail = view.findViewById(R.id.order_catalog_user_mail_info_view)
         emptyInfo = view.findViewById(R.id.info_empty_order_catalog_view)
-        userMail.text = userMailField.toString()
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getSpecificProductFromOrders(userMailField as String)
-        viewModel.specificProductsFromOrders.observe(this, Observer { response ->
+        viewModel.getKeyProductsFromOrders(userMailField as String)
+
+        viewModel.specificKeyProducts.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
-                response.body()?.let { orderAdapter.setData(it) }
+
+                Log.d("RespoKl1", response.body()!!.toString())
+
+                for (item in response.body()!!) {
+                    viewModel.getProduct(item.productKey)
+                }
+
                 if (response.body()?.size != 0) {
-                    userInfo.visibility = View.VISIBLE
-                    userMail.visibility = View.VISIBLE
                     emptyInfo.visibility = View.INVISIBLE
                 } else {
-                    userInfo.visibility = View.INVISIBLE
-                    userMail.visibility = View.INVISIBLE
                     emptyInfo.visibility = View.VISIBLE
                 }
             } else {
-                userInfo.visibility = View.VISIBLE
-                userMail.visibility = View.VISIBLE
+                Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.productCatalog.observe( viewLifecycleOwner, Observer { response ->
+            if (response.isSuccessful) {
+                response.body()?.let { orderAdapter.setData(it) }
+            } else {
                 Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
@@ -89,6 +92,27 @@ class OrderCatalogFragment : Fragment(), ChangeFragment {
             ?.replace(R.id.frame_layout, productFragment)
             ?.addToBackStack("")
             ?.commit()
+    }
+
+    override fun changeFragment(item: ProductCatalog) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(number: Int, string: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(stringOne: String, stringTwo: String, stringThree: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+        stringFour: String
+    ) {
+        TODO("Not yet implemented")
     }
 
     /*override fun checkArraySize(array: MutableList<Product>) {

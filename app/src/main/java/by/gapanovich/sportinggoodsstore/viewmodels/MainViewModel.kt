@@ -3,10 +3,7 @@ package by.gapanovich.sportinggoodsstore.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import by.gapanovich.sportinggoodsstore.models.Order
-import by.gapanovich.sportinggoodsstore.models.Product
-import by.gapanovich.sportinggoodsstore.models.SubType
-import by.gapanovich.sportinggoodsstore.models.Type
+import by.gapanovich.sportinggoodsstore.models.*
 import by.gapanovich.sportinggoodsstore.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -14,43 +11,21 @@ import retrofit2.Response
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
     var type: MutableLiveData<Response<Type>> = MutableLiveData()
-    var subType: MutableLiveData<Response<SubType>> = MutableLiveData()
-    var product: MutableLiveData<Response<Product>> = MutableLiveData()
     var order: MutableLiveData<Response<Order>> = MutableLiveData()
+    var productCatalog: MutableLiveData<Response<ProductCatalog>> = MutableLiveData()
 
     var types: MutableLiveData<Response<List<Type>>> = MutableLiveData()
-    var subTypes: MutableLiveData<Response<List<SubType>>> = MutableLiveData()
-    var products: MutableLiveData<Response<List<Product>>> = MutableLiveData()
 
     var specificSubTypes: MutableLiveData<Response<List<SubType>>> = MutableLiveData()
-    var specificProducts: MutableLiveData<Response<List<Product>>> = MutableLiveData()
-    var specificProductsFromOrders: MutableLiveData<Response<List<Product>>> = MutableLiveData()
+    var specificProducts: MutableLiveData<Response<Products>> = MutableLiveData()
+    var specificKeyProducts: MutableLiveData<Response<List<KeyProduct>>> = MutableLiveData()
+
+    var additionalProducts: MutableLiveData<Response<Products>> = MutableLiveData()
 
     fun getTypes() {
         viewModelScope.launch {
             val response = repository.getTypes()
             types.value = response
-        }
-    }
-
-    fun getSubTypes() {
-        viewModelScope.launch {
-            val response = repository.getSubTypes()
-            subTypes.value = response
-        }
-    }
-
-    fun getSpecificType(typeId: Int) {
-        viewModelScope.launch {
-            val response = repository.getSpecificType(typeId)
-            type.value = response
-        }
-    }
-
-    fun getSpecificSubType(subTypeId: Int) {
-        viewModelScope.launch {
-            val response = repository.getSpecificSubType(subTypeId)
-            subType.value = response
         }
     }
 
@@ -61,24 +36,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getProducts() {
+    fun getSpecificProducts(dictionaryType: String, values: Map<String, String>) {
         viewModelScope.launch {
-            val response = repository.getProducts()
-            products.value = response
-        }
-    }
-
-    fun getSpecificProducts(subTypeId: Int) {
-        viewModelScope.launch {
-            val response = repository.getSpecificProducts(subTypeId)
+            val response = repository.getSpecificProducts(dictionaryType, values)
             specificProducts.value = response
-        }
-    }
-
-    fun getSpecificProduct(productId: Int) {
-        viewModelScope.launch {
-            val response = repository.getProduct(productId)
-            product.value = response
         }
     }
 
@@ -89,10 +50,24 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getSpecificProductFromOrders(userMail: String) {
+    fun getKeyProductsFromOrders(userMail: String) {
         viewModelScope.launch {
-            val response = repository.getSpecificProductsFromOrders(userMail)
-            specificProductsFromOrders.value = response
+            val response = repository.getKeyProductsByMail(userMail)
+            specificKeyProducts.value = response
+        }
+    }
+
+    fun getProduct(key: String) {
+        viewModelScope.launch {
+            val response = repository.getProduct(key)
+            productCatalog.value = response
+        }
+    }
+
+    fun getAdditionalProducts(dictionaryType: String, values: Map<String, String>) {
+        viewModelScope.launch {
+            val response = repository.getSpecificProducts(dictionaryType, values)
+            additionalProducts.value = response
         }
     }
 }

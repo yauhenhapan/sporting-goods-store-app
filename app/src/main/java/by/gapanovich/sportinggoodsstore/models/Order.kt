@@ -11,6 +11,6 @@ data class Order(
     val userMail: String,
     @SerializedName("user_phone_number")
     val userPhoneNumber: String,
-    @SerializedName("id_product")
-    val productId: Int
+    @SerializedName("key_product")
+    val productKey: String
 )

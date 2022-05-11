@@ -22,8 +22,9 @@
             android:layout_centerInParent="true"
             android:text="Товаров нет"
             android:textAlignment="center"
-            android:textColor="#000"
-            android:textStyle="bold" />
+            android:textColor="@color/dark_blue"
+            android:textStyle="bold"
+            android:textSize="17sp"/>
 
         <TextView
             android:id="@+id/more_info_empty_products_vieww"
@@ -33,7 +34,8 @@
             android:layout_centerHorizontal="true"
             android:text="Не расстраивайтесь, в скором времени мы их завезём"
             android:textAlignment="center"
-            android:textColor="#000" />
+            android:textSize="16sp"
+            android:textColor="@color/dark_blue" />
 
     </RelativeLayout>
 

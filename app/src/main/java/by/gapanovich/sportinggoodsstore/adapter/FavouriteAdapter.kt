@@ -26,15 +26,16 @@ class FavouriteAdapter(val changeFragment: ChangeFragment, val checkArray: Check
             val price: TextView = itemView.findViewById(R.id.price_product_favourite_view)
             val currency: TextView = itemView.findViewById(R.id.currency_product_favourite_view)
             val img: ImageView = itemView.findViewById(R.id.img_url_product_favourite_view)
-            val btnDelete: Button = itemView.findViewById(R.id.btn_delete_product_favourite_view)
+            val btnDelete: ImageView = itemView.findViewById(R.id.btn_delete_product_favourite_view)
 
             name.text = RepositoryInstance.favArray[position].name
-            price.text = RepositoryInstance.favArray[position].price.toString()
-            currency.text = RepositoryInstance.favArray[position].currency
-            Picasso.get().load(RepositoryInstance.favArray[position].imgUrl).into(img)
+            price.text = RepositoryInstance.favArray[position].prices?.price?.amount
+            currency.text = RepositoryInstance.favArray[position].prices?.price?.currency
+
+            Picasso.get().load("https:" + list[position].img.img_url).into(img)
 
             itemView.setOnClickListener {
-                changeFragment.changeFragment(list[position].productId)
+                changeFragment.changeFragment(list[position])
             }
 
             btnDelete.setOnClickListener {

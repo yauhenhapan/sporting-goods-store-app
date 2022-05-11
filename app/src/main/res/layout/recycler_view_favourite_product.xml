@@ -4,18 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
-    app:cardCornerRadius="12dp">
+    app:cardCornerRadius="12dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="24dp">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="104dp">
 
         <ImageView
             android:id="@+id/img_url_product_favourite_view"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,46 +29,44 @@
             android:id="@+id/price_product_favourite_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/img_url_product_favourite_view"
             android:text="TextView"
-            android:textColor="#000"
+            android:textColor="@color/dark_blue"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/currency_product_favourite_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
             android:layout_toRightOf="@id/price_product_favourite_view"
             android:text="TextView"
-            android:textColor="#000"
-            android:textStyle="bold" />
+            android:textColor="@color/dark_blue" />
 
         <TextView
             android:id="@+id/name_product_favourite_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/price_product_favourite_view"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_toRightOf="@id/img_url_product_favourite_view"
             android:text="TextView"
-            android:textColor="#000" />
+            android:textColor="@color/dark_blue" />
 
-
-        <Button
+        <ImageView
             android:id="@+id/btn_delete_product_favourite_view"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_below="@id/name_product_favourite_view"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/img_url_product_favourite_view"
-            android:text="Удалить"
-            android:textSize="8sp" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_delete" />
+
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

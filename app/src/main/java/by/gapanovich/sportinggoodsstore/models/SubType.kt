@@ -10,5 +10,11 @@ data class SubType(
     @SerializedName("id_type")
     val idType: Int,
     @SerializedName("img_url")
-    val imgUrl: String
+    val imgUrl: String,
+    @SerializedName("name_dictionary")
+    val dictionarySubType: String,
+    @SerializedName("key_category")
+    val keyCategory: String,
+    @SerializedName("key_category_operation")
+    val keyCategoryOperation: String
 )

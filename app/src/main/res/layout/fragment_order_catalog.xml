@@ -5,46 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragments.OrderCatalogFragment">
 
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_order"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="80dp">
-
-        <TextView
-            android:id="@+id/order_catalog_user_info_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Заказы пользователя:"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="15sp">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/order_catalog_user_mail_info_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/order_catalog_user_info_view"
-            android:text="Почта"
-            android:textColor="#000"
-            android:textSize="15sp">
-
-        </TextView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_order"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/order_catalog_user_info_view"
-            />
-
-    </RelativeLayout>
-
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,7 +22,8 @@
             android:layout_centerInParent="true"
             android:text="У вас нет заказов"
             android:textAlignment="center"
-            android:textColor="#000"
+            android:textColor="@color/dark_blue"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
