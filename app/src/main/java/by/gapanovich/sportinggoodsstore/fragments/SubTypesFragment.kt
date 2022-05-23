@@ -1,10 +1,9 @@
 package by.gapanovich.sportinggoodsstore.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +16,6 @@ import by.gapanovich.sportinggoodsstore.repository.Repository
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
-import java.util.*
 
 class SubTypesFragment : Fragment(), ChangeFragment {
 
@@ -26,10 +24,12 @@ class SubTypesFragment : Fragment(), ChangeFragment {
     private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).supportActionBar?.title = arguments?.get("name") as CharSequence?
         recyclerView = view.findViewById(R.id.recycler_view)
 
         val idType = arguments?.get("typeId")
-        val dictionaryType=arguments?.get("typeDictionary")
+        val dictionaryType = arguments?.get("typeDictionary")
+
         setupRecyclerview(dictionaryType as String)
 
         val repository = Repository()
@@ -72,11 +72,16 @@ class SubTypesFragment : Fragment(), ChangeFragment {
         TODO("Not yet implemented")
     }
 
+    override fun changeFragment(number: Int, stringOne: String, stringTwo: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun changeFragment(
         dictionaryType: String,
         keyCategory: String,
         keyCategoryPosition: String,
-        dictionarySubType: String
+        dictionarySubType: String,
+        name: String
     ) {
         val productFragment = ProductsFragment()
         val bundle = Bundle()
@@ -84,6 +89,7 @@ class SubTypesFragment : Fragment(), ChangeFragment {
         bundle.putString("keyCategory", keyCategory)
         bundle.putString("keyCategoryPosition", keyCategoryPosition)
         bundle.putString("dictionarySubType", dictionarySubType)
+        bundle.putString("name", name)
         productFragment.arguments = bundle
 
         fragmentManager
@@ -91,6 +97,19 @@ class SubTypesFragment : Fragment(), ChangeFragment {
             ?.replace(R.id.frame_layout, productFragment)
             ?.addToBackStack("")
             ?.commit()
+    }
+
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+        stringFour: String,
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(string: String, map: HashMap<String, String>) {
+        TODO("Not yet implemented")
     }
 
     override fun changeFragment(

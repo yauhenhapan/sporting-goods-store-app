@@ -1,5 +1,6 @@
 package by.gapanovich.sportinggoodsstore.api
 
+import android.util.Log
 import by.gapanovich.sportinggoodsstore.models.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -34,4 +35,10 @@ interface Api {
     suspend fun getProduct(
         @Path("key") key: String
     ): Response<ProductCatalog>
+
+    @GET("{dictionaryType}")
+    suspend fun getSortingProducts(
+        @Path("dictionaryType") dictionaryType: String,
+        @QueryMap values: Map<String, String>
+    ): Response<Products>
 }

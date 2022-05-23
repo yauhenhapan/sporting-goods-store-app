@@ -25,7 +25,8 @@ class TypeAdapter(val changeFragment: ChangeFragment) :
             itemView.setOnClickListener {
                 changeFragment.changeFragment(
                     list[position].idType,
-                    list[position].dictionaryType
+                    list[position].dictionaryType,
+                    list[position].name
                 )
             }
         }

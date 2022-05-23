@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
@@ -31,6 +32,7 @@ class ProductFragment : Fragment() {
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         productItem = arguments?.get("product") as ProductCatalog
+        (activity as AppCompatActivity).supportActionBar?.title = "Велосипед " + productItem.fullName
 
         productName = view.findViewById(R.id.product_name)
         productImg = view.findViewById(R.id.product_image)

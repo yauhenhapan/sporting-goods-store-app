@@ -1,16 +1,13 @@
 package by.gapanovich.sportinggoodsstore.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
-import by.gapanovich.sportinggoodsstore.models.Products
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
 import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
 import com.squareup.picasso.Picasso
@@ -26,8 +23,8 @@ class ProductAdapter(val changeFragment: ChangeFragment) :
             val price: TextView = itemView.findViewById(R.id.price_product_view)
             val currency: TextView = itemView.findViewById(R.id.currency_product_view)
             val btnFavourite: ImageView = itemView.findViewById(R.id.btn_favourite_product_product_view)
-            if (RepositoryInstance.favArray.stream().anyMatch {
-                item -> item.id == list[position].id
+            if (RepositoryInstance.favArray.stream().anyMatch { item ->
+                    item.id == list[position].id
                 }) {
                 list[position].isFavouriteBtnFilled = true
                 btnFavourite.setImageResource(R.drawable.ic_heart_filled)
@@ -84,10 +81,6 @@ class ProductAdapter(val changeFragment: ChangeFragment) :
         return if (position != list.size) {
             1
         } else 0
-    }
-
-    fun addData(newList: List<ProductCatalog>) {
-        list.addAll(newList)
     }
 
     fun setData(newList: List<ProductCatalog>) {

@@ -5,7 +5,7 @@ import java.io.Serializable
 
 data class ProductCatalog (
     @SerializedName("id")
-    val id: Int,
+    val id: Number,
     @SerializedName("key")
     val key: String,
     @SerializedName("name")

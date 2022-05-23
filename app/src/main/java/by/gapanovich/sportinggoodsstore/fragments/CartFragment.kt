@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.CartAdapter
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
-import by.gapanovich.sportinggoodsstore.utils.*
+import by.gapanovich.sportinggoodsstore.utils.BottomNavigationMenu
+import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
+import by.gapanovich.sportinggoodsstore.utils.CheckArray
+import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
 
 class CartFragment : Fragment(), ChangeFragment, CheckArray {
 
@@ -103,7 +106,15 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
             ?.commit()
     }
 
+    override fun changeFragment(string: String, map: HashMap<String, String>) {
+        TODO("Not yet implemented")
+    }
+
     override fun changeFragment(number: Int, string: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(number: Int, stringOne: String, stringTwo: String) {
         TODO("Not yet implemented")
     }
 
@@ -116,6 +127,16 @@ class CartFragment : Fragment(), ChangeFragment, CheckArray {
         stringTwo: String,
         stringThree: String,
         stringFour: String
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+        stringFour: String,
+        stringFive: String
     ) {
         TODO("Not yet implemented")
     }

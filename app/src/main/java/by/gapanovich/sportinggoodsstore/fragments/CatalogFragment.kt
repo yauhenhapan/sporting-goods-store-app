@@ -56,11 +56,12 @@ class CatalogFragment : Fragment(), ChangeFragment {
         recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
-    override fun changeFragment(number: Int, string: String) {
+    override fun changeFragment(number: Int, stringOne: String, stringTwo: String) {
         val subTypesFragment = SubTypesFragment()
         val bundle = Bundle()
         bundle.putInt("typeId", number)
-        bundle.putString("typeDictionary", string)
+        bundle.putString("typeDictionary", stringOne)
+        bundle.putString("name", stringTwo)
         subTypesFragment.arguments = bundle
 
         fragmentManager
@@ -68,6 +69,10 @@ class CatalogFragment : Fragment(), ChangeFragment {
             ?.replace(R.id.frame_layout, subTypesFragment)
             ?.addToBackStack("")
             ?.commit()
+    }
+
+    override fun changeFragment(number: Int, string: String) {
+        TODO("Not yet implemented")
     }
 
     override fun changeFragment(number: Int) {
@@ -82,11 +87,25 @@ class CatalogFragment : Fragment(), ChangeFragment {
         TODO("Not yet implemented")
     }
 
+    override fun changeFragment(string: String, map: HashMap<String, String>) {
+        TODO("Not yet implemented")
+    }
+
     override fun changeFragment(
         stringOne: String,
         stringTwo: String,
         stringThree: String,
         stringFour: String
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+        stringFour: String,
+        stringFive: String
     ) {
         TODO("Not yet implemented")
     }

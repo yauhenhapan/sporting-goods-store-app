@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.OrderAdapter
-import by.gapanovich.sportinggoodsstore.models.KeyProduct
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.repository.Repository
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
@@ -58,7 +57,7 @@ class OrderCatalogFragment : Fragment(), ChangeFragment {
             }
         })
 
-        viewModel.productCatalog.observe( viewLifecycleOwner, Observer { response ->
+        viewModel.productCatalog.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
                 response.body()?.let { orderAdapter.setData(it) }
             } else {
@@ -102,6 +101,10 @@ class OrderCatalogFragment : Fragment(), ChangeFragment {
         TODO("Not yet implemented")
     }
 
+    override fun changeFragment(number: Int, stringOne: String, stringTwo: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun changeFragment(stringOne: String, stringTwo: String, stringThree: String) {
         TODO("Not yet implemented")
     }
@@ -115,15 +118,17 @@ class OrderCatalogFragment : Fragment(), ChangeFragment {
         TODO("Not yet implemented")
     }
 
-    /*override fun checkArraySize(array: MutableList<Product>) {
-        if (RepositoryInstance.ordersArray.size != 0) {
-            userInfo.visibility = View.VISIBLE
-            userMail.visibility = View.VISIBLE
-            emptyInfo.visibility = View.INVISIBLE
-        } else {
-            userInfo.visibility = View.INVISIBLE
-            userMail.visibility = View.INVISIBLE
-            emptyInfo.visibility = View.VISIBLE
-        }
-    }*/
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+        stringFour: String,
+        stringFive: String
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(string: String, map: HashMap<String, String>) {
+        TODO("Not yet implemented")
+    }
 }

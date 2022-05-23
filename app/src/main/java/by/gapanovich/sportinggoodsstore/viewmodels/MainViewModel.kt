@@ -1,5 +1,6 @@
 package by.gapanovich.sportinggoodsstore.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +21,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var specificProducts: MutableLiveData<Response<Products>> = MutableLiveData()
     var specificKeyProducts: MutableLiveData<Response<List<KeyProduct>>> = MutableLiveData()
 
-    var additionalProducts: MutableLiveData<Response<Products>> = MutableLiveData()
+    var sortingProducts: MutableLiveData<Response<Products>> = MutableLiveData()
 
     fun getTypes() {
         viewModelScope.launch {
@@ -64,10 +65,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getAdditionalProducts(dictionaryType: String, values: Map<String, String>) {
+    fun getSortingProducts(dictionaryType: String, values: Map<String, String>) {
         viewModelScope.launch {
-            val response = repository.getSpecificProducts(dictionaryType, values)
-            additionalProducts.value = response
+            val response = repository.getSortingProducts(dictionaryType, values)
+            sortingProducts.postValue(response)
         }
     }
 }

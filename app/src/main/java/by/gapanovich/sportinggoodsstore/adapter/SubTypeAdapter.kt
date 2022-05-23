@@ -28,7 +28,8 @@ class SubTypeAdapter(val changeFragment: ChangeFragment, val dictionaryType: Str
                     dictionaryType,
                     list[position].keyCategory,
                     list[position].keyCategoryOperation,
-                    list[position].dictionarySubType
+                    list[position].dictionarySubType,
+                    list[position].name
                 )
             }
         }

@@ -1,5 +1,6 @@
 package by.gapanovich.sportinggoodsstore.repository
 
+import android.util.Log
 import by.gapanovich.sportinggoodsstore.api.OnlinerProductRetrofit
 import by.gapanovich.sportinggoodsstore.api.OnlinerRetrofit
 import by.gapanovich.sportinggoodsstore.api.RetrofitInstance
@@ -30,5 +31,9 @@ class Repository {
 
     suspend fun getProduct(key: String): Response<ProductCatalog> {
         return OnlinerProductRetrofit.api.getProduct(key)
+    }
+
+    suspend fun getSortingProducts(dictionaryType: String, values: Map<String, String>): Response<Products> {
+        return OnlinerRetrofit.api.getSortingProducts(dictionaryType, values)
     }
 }

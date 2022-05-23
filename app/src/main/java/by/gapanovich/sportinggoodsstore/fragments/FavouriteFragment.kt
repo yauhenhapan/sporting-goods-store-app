@@ -99,6 +99,10 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
         TODO("Not yet implemented")
     }
 
+    override fun changeFragment(number: Int, stringOne: String, stringTwo: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun changeFragment(stringOne: String, stringTwo: String, stringThree: String) {
         TODO("Not yet implemented")
     }
@@ -109,6 +113,20 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
         stringThree: String,
         stringFour: String
     ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(
+        stringOne: String,
+        stringTwo: String,
+        stringThree: String,
+        stringFour: String,
+        stringFive: String
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun changeFragment(string: String, map: HashMap<String, String>) {
         TODO("Not yet implemented")
     }
 
