@@ -140,6 +140,16 @@ class ProductsFragment : Fragment(), ChangeFragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return inflater.inflate(R.layout.fragment_products, container, false)
+    }
+
+    private fun setupRecyclerview() {
+        recyclerView.adapter = productAdapter
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         values = HashMap()
         dictionaryType = arguments?.get("dictionaryType")!!
         val keyCategory = arguments?.get("keyCategory")
@@ -154,16 +164,6 @@ class ProductsFragment : Fragment(), ChangeFragment {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.getSpecificProducts(dictionaryType as String, values)
-        return inflater.inflate(R.layout.fragment_products, container, false)
-    }
-
-    private fun setupRecyclerview() {
-        recyclerView.adapter = productAdapter
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
 
