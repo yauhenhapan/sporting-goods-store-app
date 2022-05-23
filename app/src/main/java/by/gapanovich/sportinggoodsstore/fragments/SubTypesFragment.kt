@@ -81,7 +81,7 @@ class SubTypesFragment : Fragment(), ChangeFragment {
         keyCategory: String,
         keyCategoryPosition: String,
         dictionarySubType: String,
-        name: String
+        name: String,
     ) {
         val productFragment = ProductsFragment()
         val bundle = Bundle()

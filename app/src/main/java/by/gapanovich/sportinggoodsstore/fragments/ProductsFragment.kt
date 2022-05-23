@@ -1,7 +1,6 @@
 package by.gapanovich.sportinggoodsstore.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -38,6 +37,7 @@ class ProductsFragment : Fragment(), ChangeFragment {
     var isPageLoading: Boolean = false
     private lateinit var dictionaryType: Any
     private lateinit var values: HashMap<String, String>
+    private var isFragmentOpen: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (activity as AppCompatActivity).supportActionBar?.title = arguments?.get("name") as CharSequence?
@@ -46,11 +46,16 @@ class ProductsFragment : Fragment(), ChangeFragment {
         moreInfoText = view.findViewById(R.id.more_info_empty_products_vieww)
 
         setupRecyclerview()
+
+        if (recyclerView.adapter?.itemCount != 0) {
+            infoText.visibility = View.INVISIBLE
+            moreInfoText.visibility = View.INVISIBLE
+        }
+
         recyclerView.addOnScrollListener(object :
             PaginationListener(recyclerView.layoutManager as LinearLayoutManager) {
             override fun loadMoreItems() {
                 pageNumber += 1
-                Log.d("PAGE NUMBER PAGE NUMBER", pageNumber.toString())
                 values["page"] = pageNumber.toString()
 
                 if (isNormal) {
@@ -58,7 +63,7 @@ class ProductsFragment : Fragment(), ChangeFragment {
                 } else {
                     viewModel.getSortingProducts(dictionaryType as String, values)
                 }
-                //isPageLoading = true
+                isPageLoading = true
             }
 
             override fun isLastPage(): Boolean {
@@ -66,73 +71,72 @@ class ProductsFragment : Fragment(), ChangeFragment {
             }
 
             override fun isLoading(): Boolean {
-                return true
+                return isPageLoading
             }
         })
 
-        viewModel.specificProducts.observe(viewLifecycleOwner, Observer { response ->
-            if (response.isSuccessful) {
-                Log.d("LIST SIZE IN THE OBSERVE 111", productAdapter.list.size.toString())
-                limitPages = response.body()?.page!!.lastPageNumber
+        if (!isFragmentOpen) {
+            viewModel.specificProducts.observe(viewLifecycleOwner, Observer { response ->
+                if (response.isSuccessful) {
+                    limitPages = response.body()?.page!!.lastPageNumber
 
-                var pos = 0
-                for (i in 0 until response.body()?.productsArray?.size!!) {
-                    if (response.body()?.productsArray?.get(i)?.prices == null) {
-                        pos = i
-                        isProductNull = true
-                        break
+                    var pos = 0
+                    for (i in 0 until response.body()?.productsArray?.size!!) {
+                        if (response.body()?.productsArray?.get(i)?.prices == null) {
+                            pos = i
+                            isProductNull = true
+                            break
+                        }
                     }
-                }
 
-                if (isProductNull) {
-                    response.body()?.productsArray?.subList(0, pos)
-                        ?.let { productAdapter.setData(it) }
+                    if (isProductNull) {
+                        response.body()?.productsArray?.subList(0, pos)
+                            ?.let { productAdapter.setData(it) }
+                    } else {
+                        response.body()?.let {
+                            productAdapter.setData(it.productsArray)
+                        }
+                    }
+
+                    isPageLoading = false
+
+                if (response.body()?.productsArray?.isNotEmpty() == true) {
+                    infoText.visibility = View.INVISIBLE
+                    moreInfoText.visibility = View.INVISIBLE
                 } else {
+                    infoText.visibility = View.VISIBLE
+                    moreInfoText.visibility = View.VISIBLE
+                }
+            } else {
+                infoText.visibility = View.VISIBLE
+                moreInfoText.visibility = View.VISIBLE
+                Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+            viewModel.sortingProducts.observe(viewLifecycleOwner, Observer { response ->
+                if (response.isSuccessful) {
+                    limitPages = response.body()?.page!!.lastPageNumber
                     response.body()?.let {
                         productAdapter.setData(it.productsArray)
                     }
-                }
 
-                isPageLoading = false
+                    isPageLoading = false
 
-                if (response.body()?.productsArray?.isNotEmpty() == true) {
-                    infoText.visibility = View.INVISIBLE
-                    moreInfoText.visibility = View.INVISIBLE
+                    if (response.body()?.productsArray?.isNotEmpty() == true) {
+                        infoText.visibility = View.INVISIBLE
+                        moreInfoText.visibility = View.INVISIBLE
+                    } else {
+                        infoText.visibility = View.VISIBLE
+                        moreInfoText.visibility = View.VISIBLE
+                    }
                 } else {
                     infoText.visibility = View.VISIBLE
                     moreInfoText.visibility = View.VISIBLE
+                    Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
                 }
-                Log.d("LIST SIZE IN THE OBSERVE 222", productAdapter.list.size.toString())
-            } else {
-                infoText.visibility = View.VISIBLE
-                moreInfoText.visibility = View.VISIBLE
-                Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModel.sortingProducts.observe(viewLifecycleOwner, Observer { response ->
-            if (response.isSuccessful) {
-                limitPages = response.body()?.page!!.lastPageNumber
-                response.body()?.let {
-                    productAdapter.setData(it.productsArray)
-                }
-
-                isPageLoading = false
-
-                if (response.body()?.productsArray?.isNotEmpty() == true) {
-                    infoText.visibility = View.INVISIBLE
-                    moreInfoText.visibility = View.INVISIBLE
-                } else {
-                    infoText.visibility = View.VISIBLE
-                    moreInfoText.visibility = View.VISIBLE
-                }
-            } else {
-                infoText.visibility = View.VISIBLE
-                moreInfoText.visibility = View.VISIBLE
-                Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
-            }
-        })
-
+            })
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -189,7 +193,6 @@ class ProductsFragment : Fragment(), ChangeFragment {
                     isDescending = false
                     viewModel.getSortingProducts(dictionaryType as String, values)
                 }
-
                 true
             }
 

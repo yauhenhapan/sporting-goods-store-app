@@ -18,6 +18,8 @@ data class ProductCatalog (
     val prices: Prices?,
     @SerializedName("full_name")
     val fullName: String,
+    @SerializedName("name_prefix")
+    val prefixName: String,
     var isFavouriteBtnFilled: Boolean = false
 ): Serializable
 

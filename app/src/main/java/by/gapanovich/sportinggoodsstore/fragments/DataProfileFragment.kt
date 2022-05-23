@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.utils.UserData
@@ -18,6 +19,7 @@ class DataProfileFragment : Fragment() {
     private lateinit var btnSafeData: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).supportActionBar?.title = "Редактировать профиль"
         userName = view.findViewById(R.id.edit_user_name_view)
         userSurname = view.findViewById(R.id.edit_user_surname_view)
         btnSafeData = view.findViewById(R.id.btn_save_data)

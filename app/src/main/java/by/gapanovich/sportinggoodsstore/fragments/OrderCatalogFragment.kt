@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +29,7 @@ class OrderCatalogFragment : Fragment(), ChangeFragment {
     private val orderAdapter by lazy { OrderAdapter(this) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).supportActionBar?.title = "История заказов"
         recyclerView = view.findViewById(R.id.recycler_view_order)
         setupRecyclerview()
         val userMailField = arguments?.get("userMail")

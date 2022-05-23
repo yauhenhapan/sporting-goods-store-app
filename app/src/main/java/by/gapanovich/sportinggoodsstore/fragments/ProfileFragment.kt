@@ -29,6 +29,7 @@ class ProfileFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as AppCompatActivity).supportActionBar?.title = "Профиль"
 
         userImage = view.findViewById(R.id.user_image)
         userName = view.findViewById(R.id.user_name_profile)

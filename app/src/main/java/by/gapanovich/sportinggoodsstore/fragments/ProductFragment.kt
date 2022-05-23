@@ -32,7 +32,7 @@ class ProductFragment : Fragment() {
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         productItem = arguments?.get("product") as ProductCatalog
-        (activity as AppCompatActivity).supportActionBar?.title = "Велосипед " + productItem.fullName
+        (activity as AppCompatActivity).supportActionBar?.title = productItem.prefixName + " " + productItem.fullName
 
         productName = view.findViewById(R.id.product_name)
         productImg = view.findViewById(R.id.product_image)
