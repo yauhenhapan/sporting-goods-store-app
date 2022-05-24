@@ -37,10 +37,11 @@ class ProductsFragment : Fragment(), ChangeFragment {
     var isPageLoading: Boolean = false
     private lateinit var dictionaryType: Any
     private lateinit var values: HashMap<String, String>
-    private var isFragmentOpen: Boolean = false
+    var isFragmentOpen: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (activity as AppCompatActivity).supportActionBar?.title = arguments?.get("name") as CharSequence?
+        (activity as AppCompatActivity).supportActionBar?.title =
+            arguments?.get("name") as CharSequence?
         recyclerView = view.findViewById(R.id.recycler_view)
         infoText = view.findViewById(R.id.info_empty_products_vieww)
         moreInfoText = view.findViewById(R.id.more_info_empty_products_vieww)
@@ -76,7 +77,7 @@ class ProductsFragment : Fragment(), ChangeFragment {
         })
 
         if (!isFragmentOpen) {
-            viewModel.specificProducts.observe(viewLifecycleOwner, Observer { response ->
+            viewModel.specificProducts.observe(this, Observer { response ->
                 if (response.isSuccessful) {
                     limitPages = response.body()?.page!!.lastPageNumber
 
@@ -100,21 +101,21 @@ class ProductsFragment : Fragment(), ChangeFragment {
 
                     isPageLoading = false
 
-                if (response.body()?.productsArray?.isNotEmpty() == true) {
-                    infoText.visibility = View.INVISIBLE
-                    moreInfoText.visibility = View.INVISIBLE
+                    if (response.body()?.productsArray?.isNotEmpty() == true) {
+                        infoText.visibility = View.INVISIBLE
+                        moreInfoText.visibility = View.INVISIBLE
+                    } else {
+                        infoText.visibility = View.VISIBLE
+                        moreInfoText.visibility = View.VISIBLE
+                    }
                 } else {
                     infoText.visibility = View.VISIBLE
                     moreInfoText.visibility = View.VISIBLE
+                    Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                infoText.visibility = View.VISIBLE
-                moreInfoText.visibility = View.VISIBLE
-                Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
-            }
-        })
+            })
 
-            viewModel.sortingProducts.observe(viewLifecycleOwner, Observer { response ->
+            viewModel.sortingProducts.observe(this, Observer { response ->
                 if (response.isSuccessful) {
                     limitPages = response.body()?.page!!.lastPageNumber
                     response.body()?.let {
@@ -136,6 +137,7 @@ class ProductsFragment : Fragment(), ChangeFragment {
                     Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
                 }
             })
+            isFragmentOpen = true
         }
         super.onViewCreated(view, savedInstanceState)
     }
