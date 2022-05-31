@@ -16,6 +16,8 @@ import by.gapanovich.sportinggoodsstore.adapter.TypeAdapter
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.repository.Repository
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
+import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
+import by.gapanovich.sportinggoodsstore.utils.UserData
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
 
@@ -33,7 +35,20 @@ class CatalogFragment : Fragment(), ChangeFragment {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
+        if (RepositoryInstance.cartArray.isNotEmpty()) {
+            RepositoryInstance.cartArray.clear()
+        }
+
+        if (RepositoryInstance.favArray.isNotEmpty()) {
+            RepositoryInstance.favArray.clear()
+        }
+
+
         viewModel.getTypes()
+        viewModel.getKeyProductsFromCart(UserData.mail)
+        viewModel.getKeyProductsFromFavourites(UserData.mail)
+
         viewModel.types.observe(this, Observer { response ->
             if (response.isSuccessful) {
                 response.body()?.let { typeAdapter.setData(it) }
@@ -41,6 +56,22 @@ class CatalogFragment : Fragment(), ChangeFragment {
                 Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
+
+
+        viewModel.keyProductsFromCart.observe(this, Observer { response ->
+            if (response.isSuccessful) {
+                for (item in response.body()!!) {
+                    RepositoryInstance.cartArray.add(item.productKey)
+                }
+            }
+        })
+
+        viewModel.keyProdcutsFromFavourites.observe(this, Observer { response ->
+            for (item in response.body()!!) {
+                RepositoryInstance.favArray.add(item.productKey)
+            }
+        })
+
         super.onViewCreated(view, savedInstanceState)
     }
 

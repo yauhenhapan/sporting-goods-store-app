@@ -7,28 +7,33 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.FavouriteAdapter
+import by.gapanovich.sportinggoodsstore.models.FavouriteItem
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
-import by.gapanovich.sportinggoodsstore.utils.BottomNavigationMenu
-import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
-import by.gapanovich.sportinggoodsstore.utils.CheckArray
-import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
+import by.gapanovich.sportinggoodsstore.repository.Repository
+import by.gapanovich.sportinggoodsstore.utils.*
+import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
+import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
 
-class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
+class FavouriteFragment : Fragment(), ChangeFragment, CheckArray, FavouritesFunctions {
 
     private lateinit var recyclerView: RecyclerView
-    private val favouriteAdapter by lazy { FavouriteAdapter(this, this) }
+    private val favouriteAdapter by lazy { FavouriteAdapter(this, this, this) }
     private lateinit var infoText: TextView
     private lateinit var moreInfoText: TextView
     private lateinit var btnMoveToCatalog: Button
     private lateinit var changeStateToCatalog: BottomNavigationMenu
     private lateinit var emoji: ImageView
+    private lateinit var viewModel: MainViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (activity as AppCompatActivity).supportActionBar?.title = "Избранное"
@@ -40,6 +45,10 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
         moreInfoText = view.findViewById(R.id.more_info_empty_favourite_view)
         btnMoveToCatalog = view.findViewById(R.id.btn_move_to_catalog_from_fav)
         emoji = view.findViewById(R.id.emoji_sad_favourite)
+
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         btnMoveToCatalog.setOnClickListener {
             val catalogFragment = CatalogFragment()
@@ -53,6 +62,20 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
         }
 
         checkArraySize(RepositoryInstance.favArray)
+
+        if(RepositoryInstance.favArray.size != 0) {
+            for (item in RepositoryInstance.favArray) {
+                viewModel.getProductFromFavouritesByKey(item)
+            }
+        }
+
+        viewModel.productFromFavouritesByKey.observe(this, Observer { response ->
+            if (response.isSuccessful) {
+                response.body()?.let { favouriteAdapter.setData(it) }
+            }else {
+                Toast.makeText(activity, response.code(), Toast.LENGTH_SHORT).show()
+            }
+        })
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -130,7 +153,7 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
         TODO("Not yet implemented")
     }
 
-    override fun checkArraySize(array: MutableList<ProductCatalog>) {
+    override fun checkArraySize(array: MutableList<String>) {
         if (RepositoryInstance.favArray.size != 0) {
             infoText.visibility = View.INVISIBLE
             moreInfoText.visibility = View.INVISIBLE
@@ -142,5 +165,13 @@ class FavouriteFragment : Fragment(), ChangeFragment, CheckArray {
             btnMoveToCatalog.visibility = View.VISIBLE
             emoji.visibility = View.VISIBLE
         }
+    }
+
+    override fun addToFavourites(item: FavouriteItem) {
+        viewModel.addProductToFavourites(item)
+    }
+
+    override fun removeFromFavourites(userMail: String, keyProduct: String) {
+        viewModel.deleteProductFromFavourites(userMail, keyProduct)
     }
 }

@@ -7,12 +7,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
+import by.gapanovich.sportinggoodsstore.models.FavouriteItem
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
+import by.gapanovich.sportinggoodsstore.utils.FavouritesFunctions
 import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
+import by.gapanovich.sportinggoodsstore.utils.UserData
 import com.squareup.picasso.Picasso
 
-class ProductAdapter(val changeFragment: ChangeFragment) :
+class ProductAdapter(
+    val changeFragment: ChangeFragment,
+    val favouritesFunctions: FavouritesFunctions
+) :
     RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
     var list = mutableListOf<ProductCatalog>()
 
@@ -24,7 +30,7 @@ class ProductAdapter(val changeFragment: ChangeFragment) :
             val currency: TextView = itemView.findViewById(R.id.currency_product_view)
             val btnFavourite: ImageView = itemView.findViewById(R.id.btn_favourite_product_product_view)
             if (RepositoryInstance.favArray.stream().anyMatch { item ->
-                    item.id == list[position].id
+                    item == list[position].key
                 }) {
                 list[position].isFavouriteBtnFilled = true
                 btnFavourite.setImageResource(R.drawable.ic_heart_filled)
@@ -42,10 +48,16 @@ class ProductAdapter(val changeFragment: ChangeFragment) :
             btnFavourite.setOnClickListener {
                 if (list[position].isFavouriteBtnFilled) {
                     btnFavourite.setImageResource(R.drawable.ic_heart)
-                    RepositoryInstance.favArray.remove(list[position])
+                    favouritesFunctions.removeFromFavourites(UserData.mail, list[position].key)
+                    RepositoryInstance.favArray.remove(list[position].key)
                     list[position].isFavouriteBtnFilled = false
                 } else {
-                    RepositoryInstance.favArray.add(list[position])
+                    val favouriteItem = FavouriteItem(
+                        UserData.mail,
+                        list[position].key
+                    )
+                    favouritesFunctions.addToFavourites(favouriteItem)
+                    RepositoryInstance.favArray.add(list[position].key)
                     btnFavourite.setImageResource(R.drawable.ic_heart_filled)
                     list[position].isFavouriteBtnFilled = true
                 }

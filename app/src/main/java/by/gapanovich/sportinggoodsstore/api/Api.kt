@@ -41,4 +41,41 @@ interface Api {
         @Path("dictionaryType") dictionaryType: String,
         @QueryMap values: Map<String, String>
     ): Response<Products>
+
+    @POST("carts")
+    suspend fun addToCart(
+        @Body item: CartItem
+    ): Response<CartItem>
+
+    @GET("carts/{userMail}")
+    suspend fun getKeyProductsFromCartByMail(
+        @Path("userMail") userMail: String
+    ): Response<List<KeyProduct>>
+
+    @DELETE("carts/{userMail}/{keyProduct}")
+    suspend fun deleteProductFromCartByMailAndKeyProduct(
+        @Path("userMail") userMail: String,
+        @Path("keyProduct") keyProduct: String
+    )
+
+    @POST("favourites")
+    suspend fun addToFavourites(
+        @Body item: FavouriteItem
+    ): Response<FavouriteItem>
+
+    @GET("favourites/{userMail}")
+    suspend fun getKeyProductsFromFavouritesByMail(
+        @Path("userMail") userMail: String
+    ): Response<List<KeyProduct>>
+
+    @DELETE("favourites/{userMail}/{keyProduct}")
+    suspend fun deleteProductFromFavouritesByMailAndKeyProduct(
+        @Path("userMail") userMail: String,
+        @Path("keyProduct") keyProduct: String
+    )
+
+    @DELETE("carts/{userMail}/")
+    suspend fun deleteAllProductsFromCartByMail(
+        @Path("userMail") userMail: String,
+    )
 }

@@ -43,8 +43,6 @@ class OrderCatalogFragment : Fragment(), ChangeFragment {
         viewModel.specificKeyProducts.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
 
-                Log.d("RespoKl1", response.body()!!.toString())
-
                 for (item in response.body()!!) {
                     viewModel.getProduct(item.productKey)
                 }

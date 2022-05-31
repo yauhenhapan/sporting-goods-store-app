@@ -3,20 +3,18 @@ package by.gapanovich.sportinggoodsstore.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
-import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
-import by.gapanovich.sportinggoodsstore.utils.CheckArray
-import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
+import by.gapanovich.sportinggoodsstore.models.ProductCatalog
+import by.gapanovich.sportinggoodsstore.utils.*
 import com.squareup.picasso.Picasso
 
-class FavouriteAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray) :
+class FavouriteAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray, val favouritesFunctions: FavouritesFunctions) :
     RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>() {
 
-    private var list = RepositoryInstance.favArray
+    private var list = mutableListOf<ProductCatalog>()
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -28,9 +26,9 @@ class FavouriteAdapter(val changeFragment: ChangeFragment, val checkArray: Check
             val img: ImageView = itemView.findViewById(R.id.img_url_product_favourite_view)
             val btnDelete: ImageView = itemView.findViewById(R.id.btn_delete_product_favourite_view)
 
-            name.text = RepositoryInstance.favArray[position].name
-            price.text = RepositoryInstance.favArray[position].prices?.price?.amount
-            currency.text = RepositoryInstance.favArray[position].prices?.price?.currency
+            name.text = list[position].name
+            price.text = list[position].prices?.price?.amount
+            currency.text = list[position].prices?.price?.currency
 
             Picasso.get().load("https:" + list[position].img.img_url).into(img)
 
@@ -40,6 +38,8 @@ class FavouriteAdapter(val changeFragment: ChangeFragment, val checkArray: Check
 
             btnDelete.setOnClickListener {
                 RepositoryInstance.favArray.removeAt(position)
+                favouritesFunctions.removeFromFavourites(UserData.mail, list[position].key)
+                list.removeAt(position)
                 notifyDataSetChanged()
                 checkArray.checkArraySize(RepositoryInstance.favArray)
             }
@@ -77,5 +77,10 @@ class FavouriteAdapter(val changeFragment: ChangeFragment, val checkArray: Check
         return if (position != list.size) {
             1
         } else 0
+    }
+
+    fun setData(item: ProductCatalog) {
+        list.add(item)
+        notifyDataSetChanged()
     }
 }

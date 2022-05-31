@@ -3,20 +3,22 @@ package by.gapanovich.sportinggoodsstore.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
-import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
-import by.gapanovich.sportinggoodsstore.utils.CheckArray
-import by.gapanovich.sportinggoodsstore.utils.RepositoryInstance
+import by.gapanovich.sportinggoodsstore.models.ProductCatalog
+import by.gapanovich.sportinggoodsstore.utils.*
 import com.squareup.picasso.Picasso
 
-class CartAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray) :
+class CartAdapter(
+    val changeFragment: ChangeFragment,
+    val checkArray: CheckArray,
+    val cartFunctions: CartFunctions
+) :
     RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
 
-    private var list = RepositoryInstance.cartArray
+    private var list = mutableListOf<ProductCatalog>()
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -28,9 +30,9 @@ class CartAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray
             val img: ImageView = itemView.findViewById(R.id.img_url_product_cart_view)
             val btnDelete: ImageView = itemView.findViewById(R.id.btn_delete_product_cart_view)
 
-            name.text = RepositoryInstance.cartArray[position].name
-            price.text = RepositoryInstance.cartArray[position].prices?.price?.amount
-            currency.text = RepositoryInstance.cartArray[position].prices?.price?.currency
+            name.text = list[position].name
+            price.text = list[position].prices?.price?.amount
+            currency.text = list[position].prices?.price?.currency
 
             Picasso.get().load("https:" + list[position].img.img_url).into(img)
 
@@ -40,6 +42,8 @@ class CartAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray
 
             btnDelete.setOnClickListener {
                 RepositoryInstance.cartArray.removeAt(position)
+                cartFunctions.removeFromCart(UserData.mail, list[position].key)
+                list.removeAt(position)
                 notifyDataSetChanged()
                 checkArray.checkArraySize(RepositoryInstance.cartArray)
             }
@@ -74,5 +78,10 @@ class CartAdapter(val changeFragment: ChangeFragment, val checkArray: CheckArray
         return if (position != list.size) {
             1
         } else 0
+    }
+
+    fun setData(item: ProductCatalog) {
+        list.add(item)
+        notifyDataSetChanged()
     }
 }

@@ -14,6 +14,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var type: MutableLiveData<Response<Type>> = MutableLiveData()
     var order: MutableLiveData<Response<Order>> = MutableLiveData()
     var productCatalog: MutableLiveData<Response<ProductCatalog>> = MutableLiveData()
+    var cart: MutableLiveData<Response<CartItem>> = MutableLiveData()
+    var favourites: MutableLiveData<Response<FavouriteItem>> = MutableLiveData()
 
     var types: MutableLiveData<Response<List<Type>>> = MutableLiveData()
 
@@ -22,6 +24,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var specificKeyProducts: MutableLiveData<Response<List<KeyProduct>>> = MutableLiveData()
 
     var sortingProducts: MutableLiveData<Response<Products>> = MutableLiveData()
+
+    var keyProductsFromCart: MutableLiveData<Response<List<KeyProduct>>> = MutableLiveData()
+    var keyProdcutsFromFavourites: MutableLiveData<Response<List<KeyProduct>>> = MutableLiveData()
+
+    var productFromCartByKey: MutableLiveData<Response<ProductCatalog>> = MutableLiveData()
+    var productFromFavouritesByKey: MutableLiveData<Response<ProductCatalog>> = MutableLiveData()
 
     fun getTypes() {
         viewModelScope.launch {
@@ -69,6 +77,66 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             val response = repository.getSortingProducts(dictionaryType, values)
             sortingProducts.postValue(response)
+        }
+    }
+
+    fun addProductToCart(item: CartItem) {
+        viewModelScope.launch {
+            val response = repository.addToCart(item)
+            cart.value = response
+        }
+    }
+
+    fun addProductToFavourites(item: FavouriteItem) {
+        viewModelScope.launch {
+            val response = repository.addToFavourites(item)
+            favourites.value = response
+        }
+    }
+
+    fun deleteProductFromCart(userMail: String, keyProduct: String) {
+        viewModelScope.launch {
+            repository.deleteProductFromCartByMailAndKeyProduct(userMail, keyProduct)
+        }
+    }
+
+    fun deleteProductFromFavourites(userMail: String, keyProduct: String) {
+        viewModelScope.launch {
+            repository.deleteProductFromFavouritesByMailAndKeyProduct(userMail, keyProduct)
+        }
+    }
+
+    fun getKeyProductsFromCart(userMail: String) {
+        viewModelScope.launch {
+            val response = repository.getKeyProductsFromCartByMail(userMail)
+            keyProductsFromCart.value = response
+        }
+    }
+
+    fun getKeyProductsFromFavourites(userMail: String) {
+        viewModelScope.launch {
+            val response = repository.getKeyProductsFromFavouritesByMail(userMail)
+            keyProdcutsFromFavourites.value = response
+        }
+    }
+
+    fun getProductFromCartByKey(key: String) {
+        viewModelScope.launch {
+            val response = repository.getProduct(key)
+            productFromCartByKey.value = response
+        }
+    }
+
+    fun getProductFromFavouritesByKey(key: String) {
+        viewModelScope.launch {
+            val response = repository.getProduct(key)
+            productFromFavouritesByKey.value = response
+        }
+    }
+
+    fun deleteAllProductsFromCart(userMail: String) {
+        viewModelScope.launch {
+            repository.deleteAllProductsFromCartByMail(userMail)
         }
     }
 }

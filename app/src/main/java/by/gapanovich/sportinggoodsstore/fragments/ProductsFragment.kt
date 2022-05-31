@@ -13,18 +13,22 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gapanovich.sportinggoodsstore.R
 import by.gapanovich.sportinggoodsstore.adapter.ProductAdapter
 import by.gapanovich.sportinggoodsstore.listeners.PaginationListener
+import by.gapanovich.sportinggoodsstore.models.CartItem
+import by.gapanovich.sportinggoodsstore.models.FavouriteItem
 import by.gapanovich.sportinggoodsstore.models.ProductCatalog
 import by.gapanovich.sportinggoodsstore.repository.Repository
+import by.gapanovich.sportinggoodsstore.utils.CartFunctions
 import by.gapanovich.sportinggoodsstore.utils.ChangeFragment
+import by.gapanovich.sportinggoodsstore.utils.FavouritesFunctions
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModel
 import by.gapanovich.sportinggoodsstore.viewmodels.MainViewModelFactory
 import kotlin.properties.Delegates
 
 
-class ProductsFragment : Fragment(), ChangeFragment {
+class ProductsFragment : Fragment(), ChangeFragment, FavouritesFunctions {
 
     private lateinit var viewModel: MainViewModel
-    private val productAdapter by lazy { ProductAdapter(this) }
+    private val productAdapter by lazy { ProductAdapter(this, this) }
     private lateinit var recyclerView: RecyclerView
     private lateinit var infoText: TextView
     private lateinit var moreInfoText: TextView
@@ -268,5 +272,13 @@ class ProductsFragment : Fragment(), ChangeFragment {
         stringFive: String
     ) {
         TODO("Not yet implemented")
+    }
+
+    override fun addToFavourites(item: FavouriteItem) {
+        viewModel.addProductToFavourites(item)
+    }
+
+    override fun removeFromFavourites(userMail: String, key: String) {
+        viewModel.deleteProductFromFavourites(userMail, key)
     }
 }

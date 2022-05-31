@@ -48,20 +48,21 @@ class OrderFillingFragment : Fragment() {
                 val repository = Repository()
                 val viewModelFactory = MainViewModelFactory(repository)
                 viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-                for (product in RepositoryInstance.cartArray) {
+                for (productKey in RepositoryInstance.cartArray) {
                     val order = Order(
                         userName.text.toString(),
                         userSurname.text.toString(),
                         UserData.mail,
                         userPhoneNumber.text.toString(),
-                        product.key
+                        productKey
                     )
                     viewModel.createOrder(order)
                 }
                 Toast.makeText(activity, "Заказ оформлен", Toast.LENGTH_SHORT)
                     .show()
-                RepositoryInstance.ordersArray = RepositoryInstance.cartArray
                 RepositoryInstance.cartArray.clear()
+                viewModel.deleteAllProductsFromCart(UserData.mail)
+
                 fragmentManager
                     ?.beginTransaction()
                     ?.replace(R.id.frame_layout, CartFragment())
